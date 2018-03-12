@@ -11,7 +11,7 @@ import (
 // User represents a user of this software
 type User struct {
 	gorm.Model
-	Login string
+	Login string `gorm:"unique"`
 	First string
 	Pass  string
 }
