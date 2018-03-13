@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
@@ -25,11 +24,8 @@ type Transaction struct {
 	Note   string
 }
 
-var dbLocation string = "data/"
-
 func main() {
-	_ = os.Mkdir(dbLocation)
-	db, err := gorm.Open("sqlite3", dbLocation+"penunse.db")
+	db, err := gorm.Open("sqlite3", "penunse.db")
 	if err != nil {
 		log.Fatal("cant' connect to database")
 	}
