@@ -1,10 +1,12 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 
-	"github.com/alecthomas/template"
+	"gitlab.ls42.de/go/penunse/lib"
+
 	"github.com/boltdb/bolt"
 )
 
@@ -40,6 +42,8 @@ func main() {
 		"/static/",
 		http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))),
 	)
+	pass := "little-horror-shop-is-fancy"
+	log.Printf("%s", penunse.EncryptPass(pass))
 	log.Printf("Listening on port %s\n", cfg.port)
 	http.ListenAndServe(cfg.port, mux)
 }

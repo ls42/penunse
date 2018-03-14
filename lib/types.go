@@ -5,7 +5,7 @@ type User struct {
 	ID    string `json:"id"`
 	Login string `json:"login"`
 	First string `json:"first"`
-	Pass  string
+	Pass  []byte
 }
 
 // Transaction is an action that affects your depot
