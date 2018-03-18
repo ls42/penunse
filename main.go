@@ -42,7 +42,11 @@ func main() {
 		http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))),
 	)
 	pass := "little-horror-shop-is-fancy"
-	log.Printf("%s", penunse.EncryptPass(pass))
+	pHash, err := penunse.EncryptPass(pass)
+	if err != nil {
+		log.Fatal("error while hashing password")
+	}
+	log.Printf("%s", pHash)
 	log.Printf("Listening on port %s\n", port)
 	http.ListenAndServe(port, mux)
 }
