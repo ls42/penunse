@@ -7,65 +7,36 @@ import (
 	"github.com/boltdb/bolt"
 )
 
-// GetAllTransactions from the database
-func GetAllTransactions(db *bolt.DB) []Transaction {
-	var transactions []Transaction
-	var transaction Transaction
+// GetTransactions loads all transactions from the database
+func GetTransactions(db *bolt.DB) []Transaction {
+	var ts []Transaction
+	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
 		b.ForEach(func(key, value []byte) error {
-			err := json.Unmarshal(value, &transaction)
+			err := json.Unmarshal(value, &t)
 			if err != nil {
 				log.Fatal(err)
 			}
-			transactions = append(transactions, transaction)
+			ts = append(ts, t)
 			return nil
 		})
 		return nil
 	})
-	return transactions
+	return ts
 }
 
-// GetTransaction from the database
+// GetTransaction loads a single transaction from the database, by ID.
 func GetTransaction(id string, db *bolt.DB) Transaction {
-	var transaction Transaction
+	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
 		value := b.Get([]byte(id))
-		err := json.Unmarshal(value, &transaction)
+		err := json.Unmarshal(value, &t)
 		if err != nil {
 			log.Fatal(err)
 		}
 		return nil
 	})
-	return transaction
-}
-
-// SaveTransaction to the database
-func SaveTransaction(transaction Transaction, db *bolt.DB) {
-	id := transaction.ID
-	encodedTransaction, err := json.Marshal(transaction)
-	if err != nil {
-		log.Fatal(err)
-	}
-	db.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("transactions"))
-		err := b.Put([]byte(id), encodedTransaction)
-		if err != nil {
-			log.Fatal(err)
-		}
-		return nil
-	})
-}
-
-// DeleteTransaction from the database
-func DeleteTransaction(id string, db *bolt.DB) {
-	db.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("transactions"))
-		err := b.Delete([]byte(id))
-		if err != nil {
-			log.Fatal(err)
-		}
-		return nil
-	})
+	return t
 }

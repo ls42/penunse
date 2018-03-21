@@ -1,7 +1,11 @@
 package penunse
 
 import (
+	"encoding/json"
+	"errors"
 	"time"
+
+	"github.com/boltdb/bolt"
 )
 
 // Users is a collection of User
@@ -26,4 +30,32 @@ type Transaction struct {
 	Amount float32  `json:"amount"`
 	Tags   []string `json:"tags"`
 	Note   string   `json:"note"`
+}
+
+// Save saves this Transaction to the database
+func (t *Transaction) Save(db *bolt.DB) error {
+	tj, err := json.Marshal(t)
+	if err != nil {
+		return errors.New("unable to marshal transaction")
+	}
+	return db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("transactions"))
+		err := b.Put([]byte(t.ID), tj)
+		if err != nil {
+			return errors.New("unable to save this transaction")
+		}
+		return nil
+	})
+}
+
+// Delete removes this Transaction from the database
+func (t *Transaction) Delete(db *bolt.DB) error {
+	return db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("transactions"))
+		err := b.Delete([]byte(t.ID))
+		if err != nil {
+			return errors.New("unable to delete this transaction")
+		}
+		return nil
+	})
 }
