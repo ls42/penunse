@@ -44,14 +44,14 @@ func main() {
 		log.Printf("%+v", ts)
 	})
 	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
-		apiContent, err := ioutil.ReadAll(r.Body)
+		reqBody, err := ioutil.ReadAll(r.Body)
 		defer r.Body.Close()
 		if err != nil {
 			http.Error(w, "cannot read data", 400)
 			return
 		}
 		var t penunse.Transaction
-		err = json.Unmarshal(apiContent, &t)
+		err = json.Unmarshal(reqBody, &t)
 		if err != nil {
 			http.Error(w, "invalid json", 400)
 			return
