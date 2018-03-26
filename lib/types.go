@@ -15,7 +15,7 @@ type Users struct {
 
 // User represents a user of this software
 type User struct {
-	ID      string `json:"id"`
+	ID      int    `json:"id"`
 	Login   string `json:"login"`
 	First   string `json:"first"`
 	Created time.Time
@@ -26,7 +26,8 @@ type User struct {
 
 // Transaction is an action that affects your depot
 type Transaction struct {
-	ID     string   `json:"json"`
+	ID     string   `json:"transaction_id"`
+	User   int      `json:"user_id"`
 	Amount float32  `json:"amount"`
 	Tags   []string `json:"tags"`
 	Note   string   `json:"note"`

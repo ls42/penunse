@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -35,6 +37,26 @@ func main() {
 		if err != nil {
 			log.Fatal("rendering default template failed")
 		}
+	})
+	mux.HandleFunc("/api/transaction/read/all", func(w http.ResponseWriter, r *http.Request) {
+		// TODO: Check if
+		ts := penunse.GetTransactions(db)
+		log.Printf("%+v", ts)
+	})
+	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
+		apiContent, err := ioutil.ReadAll(r.Body)
+		defer r.Body.Close()
+		if err != nil {
+			http.Error(w, "cannot read data", 400)
+			return
+		}
+		var t penunse.Transaction
+		err = json.Unmarshal(apiContent, &t)
+		if err != nil {
+			http.Error(w, "invalid json", 400)
+			return
+		}
+		t.Save(db)
 	})
 
 	mux.Handle(
