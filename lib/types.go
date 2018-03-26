@@ -1,12 +1,20 @@
 package penunse
 
 import (
+	"encoding/binary"
 	"encoding/json"
 	"errors"
 	"time"
 
 	"github.com/boltdb/bolt"
 )
+
+// itob returns an 8-byte big endian representation of v.
+func itob(v int) []byte {
+	b := make([]byte, 8)
+	binary.BigEndian.PutUint64(b, uint64(v))
+	return b
+}
 
 // Users is a collection of User
 type Users struct {
@@ -26,7 +34,7 @@ type User struct {
 
 // Transaction is an action that affects your depot
 type Transaction struct {
-	ID     string   `json:"transaction_id"`
+	ID     int      `json:"transaction_id"`
 	User   int      `json:"user_id"`
 	Amount float32  `json:"amount"`
 	Tags   []string `json:"tags"`
@@ -41,7 +49,9 @@ func (t *Transaction) Save(db *bolt.DB) error {
 	}
 	return db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
-		err := b.Put([]byte(t.ID), tj)
+		id, _ := b.NextSequence()
+		t.ID = int(id)
+		err := b.Put(itob(t.ID), tj)
 		if err != nil {
 			return errors.New("unable to save this transaction")
 		}
@@ -53,7 +63,7 @@ func (t *Transaction) Save(db *bolt.DB) error {
 func (t *Transaction) Delete(db *bolt.DB) error {
 	return db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
-		err := b.Delete([]byte(t.ID))
+		err := b.Delete(itob(t.ID))
 		if err != nil {
 			return errors.New("unable to delete this transaction")
 		}

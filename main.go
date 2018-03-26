@@ -56,7 +56,11 @@ func main() {
 			http.Error(w, "invalid json", 400)
 			return
 		}
-		t.Save(db)
+		err = t.Save(db)
+		if err != nil {
+			http.Error(w, "cannot save entry", 500)
+			return
+		}
 	})
 
 	mux.Handle(
