@@ -43,15 +43,15 @@ type Transaction struct {
 
 // Save saves this Transaction to the database
 func (t *Transaction) Save(db *bolt.DB) error {
-	tj, err := json.Marshal(t)
-	if err != nil {
-		return errors.New("unable to marshal transaction")
-	}
 	return db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
 		id, _ := b.NextSequence()
 		t.ID = int(id)
-		err := b.Put(itob(t.ID), tj)
+		tj, err := json.Marshal(t)
+		if err != nil {
+			return errors.New("unable to serialize transaction to json")
+		}
+		err = b.Put(itob(t.ID), tj)
 		if err != nil {
 			return errors.New("unable to save this transaction")
 		}
