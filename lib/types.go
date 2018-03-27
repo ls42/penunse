@@ -29,11 +29,14 @@ type User struct {
 
 // Transaction is an action that affects your depot
 type Transaction struct {
-	ID     int      `json:"id"`
-	User   int      `json:"user_id"`
-	Amount float32  `json:"amount"`
-	Tags   []string `json:"tags"`
-	Note   string   `json:"note"`
+	ID      int       `json:"id"`
+	User    int       `json:"user_id"`
+	Amount  float32   `json:"amount"`
+	Tags    []string  `json:"tags"`
+	Note    string    `json:"note"`
+	Created time.Time `json:"created"`
+	Updated time.Time `json:"updated"`
+	Deleted time.Time `json:"deleted"`
 }
 
 // Save saves this Transaction to the database
@@ -42,6 +45,7 @@ func (t *Transaction) Save(db *bolt.DB) error {
 		b := tx.Bucket([]byte("transactions"))
 		id, _ := b.NextSequence()
 		t.ID = int(id)
+		t.Created = time.Now()
 		tj, err := json.Marshal(t)
 		if err != nil {
 			return errors.New("unable to serialize transaction to json")

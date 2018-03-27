@@ -15,8 +15,8 @@ String.prototype.fuzzy = function (s) {
 	return true
 }
 
-let apiBase = "http://localhost:4202/api"
-// let apiBase = "https://penunse.ls42.de/api"
+// let apiBase = "http://localhost:4202/api"
+let apiBase = "https://penunse.ls42.de/api"
 
 // Try a call to the API
 function callAPI() {

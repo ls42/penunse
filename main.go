@@ -2,11 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/boltdb/bolt"
 	"gitlab.ls42.de/go/penunse/lib"
@@ -18,10 +20,11 @@ type templateConfig struct {
 
 const (
 	appName = "Penunse"
-	port    = ":4202"
 )
 
 func main() {
+
+	port := flag.Int("port", 4202, "port to listen on")
 
 	// TODO: Move database init to `lib/database.go`
 	db, err := bolt.Open("penunse.bolt", 0600, nil)
@@ -95,6 +98,6 @@ func main() {
 		log.Fatal("error while hashing password")
 	}
 	log.Printf("%s", pHash)
-	log.Printf("Listening on port %s\n", port)
-	http.ListenAndServe(port, mux)
+	log.Printf("Listening on port %d\n", *port)
+	http.ListenAndServe(":"+strconv.Itoa(*port), mux)
 }
