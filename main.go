@@ -68,6 +68,7 @@ func main() {
 		if err != nil {
 			http.Error(w, "cannot serialize transactions", 500)
 		}
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		json.NewEncoder(w).Encode(ts)
 	})
 	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
