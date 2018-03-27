@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -21,10 +22,23 @@ const (
 )
 
 func main() {
+
+	// TODO: Move database init to `lib/database.go`
 	db, err := bolt.Open("penunse.bolt", 0600, nil)
 	if err != nil {
 		log.Fatal("can't connect to database")
 	}
+	db.Update(func(tx *bolt.Tx) error {
+		_, err := tx.CreateBucketIfNotExists([]byte("transactions"))
+		if err != nil {
+			return fmt.Errorf("create bucket: %s", err)
+		}
+		_, err = tx.CreateBucketIfNotExists([]byte("users"))
+		if err != nil {
+			return fmt.Errorf("create bucket: %s", err)
+		}
+		return nil
+	})
 	defer db.Close()
 
 	mux := http.NewServeMux()
