@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -20,6 +21,15 @@ const (
 	appName = "Penunse"
 	port    = ":4202"
 )
+
+// TODO: Move this to lib/tools.go or lib/helpers.go or something
+func serializeTransactions(ts []penunse.Transaction) ([]byte, error) {
+	tsj, err := json.Marshal(ts)
+	if err != nil {
+		return nil, errors.New("unable to serialize transactions to json")
+	}
+	return tsj, nil
+}
 
 func main() {
 
@@ -54,8 +64,11 @@ func main() {
 	})
 	mux.HandleFunc("/api/transaction/read/all", func(w http.ResponseWriter, r *http.Request) {
 		ts := penunse.GetTransactions(db)
-		log.Printf("%+v", ts)
-		// TODO: Return JSON version of all found entries
+		// tsj, err := serializeTransactions(ts)
+		if err != nil {
+			http.Error(w, "cannot serialize transactions", 500)
+		}
+		json.NewEncoder(w).Encode(ts)
 	})
 	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
 		reqBody, err := ioutil.ReadAll(r.Body)

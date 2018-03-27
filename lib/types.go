@@ -16,11 +16,6 @@ func itob(v int) []byte {
 	return b
 }
 
-// Users is a collection of User
-type Users struct {
-	Users []User
-}
-
 // User represents a user of this software
 type User struct {
 	ID      int    `json:"id"`
@@ -34,7 +29,7 @@ type User struct {
 
 // Transaction is an action that affects your depot
 type Transaction struct {
-	ID     int      `json:"transaction_id"`
+	ID     int      `json:"id"`
 	User   int      `json:"user_id"`
 	Amount float32  `json:"amount"`
 	Tags   []string `json:"tags"`

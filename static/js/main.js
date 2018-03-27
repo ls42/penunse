@@ -13,5 +13,3 @@ String.prototype.fuzzy = function (s) {
 	for (; (l = s[i++]);) if (!~(n = hay.indexOf(l, n + 1))) return false
 	return true
 }
-
-console.log("Hey, this is debug stuff. You should get out while you can!!")
