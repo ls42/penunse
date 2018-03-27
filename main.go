@@ -18,7 +18,7 @@ type templateConfig struct {
 
 const (
 	appName = "Penunse"
-	port    = ":4200"
+	port    = ":4202"
 )
 
 func main() {
