@@ -31,7 +31,7 @@ td {
 }
 
 /* Table grid settings */
-.table-grid {
+#table-grid {
 	max-width: 800px;
 	margin: 0 auto;
 	display: grid;
