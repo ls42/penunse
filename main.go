@@ -53,9 +53,9 @@ func main() {
 		}
 	})
 	mux.HandleFunc("/api/transaction/read/all", func(w http.ResponseWriter, r *http.Request) {
-		// TODO: Check if
 		ts := penunse.GetTransactions(db)
 		log.Printf("%+v", ts)
+		// TODO: Return JSON version of all found entries
 	})
 	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
 		reqBody, err := ioutil.ReadAll(r.Body)
