@@ -93,7 +93,14 @@ function constructTable(transactions) {
 					})
 					break
 				case "Note":
-					cell.appendChild(document.createTextNode(e.note))
+					let noteCell
+					if (e.note.length >= 20) {
+						noteCell = document.createTextNode(e.note.substr(0, 20) + " [...]")
+					} else {
+						noteCell = document.createTextNode(e.note)
+					}
+					cell.title = e.note
+					cell.appendChild(noteCell)
 					break
 			}
 			tr.appendChild(cell)
