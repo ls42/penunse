@@ -18,7 +18,7 @@ String.prototype.fuzzy = function (s) {
 // let apiBase = "http://localhost:4202/api"
 let apiBase = "https://penunse.ls42.de/api"
 
-// Try a call to the API
+// Get the transaction data from the server
 function callAPI() {
 	let request = new Request(`${apiBase}/transaction/read/all`, {
 		headers: new Headers({
@@ -37,14 +37,7 @@ function callAPI() {
 	})
 }
 
-/*
- * NOTES:
- * - Depending on user id render entries in left
- *   or right table (modulo based on user id).
- *   Also generate a tbody for each user. This way
- *   I can also render the caption correctly
- * - attach the two tbodies two the tables
- */
+// Create a table based on the data in `transactions`
 function constructTable(transactions) {
 
 	// Generate table header
