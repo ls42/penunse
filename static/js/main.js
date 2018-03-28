@@ -19,7 +19,7 @@ String.prototype.fuzzy = function (s) {
 let apiBase = "https://penunse.ls42.de/api"
 
 // Get the transaction data from the server
-function callAPI() {
+function reloadData() {
 	let request = new Request(`${apiBase}/transaction/read/all`, {
 		headers: new Headers({
 			"X-Clacks-Overhead": "GNU Terry Pratchett"
@@ -39,11 +39,19 @@ function callAPI() {
 
 // Create a table based on the data in `transactions`
 function constructTable(transactions) {
+	let leftTable = document.getElementById("table-left")
+	let rightTable = document.getElementById("table-right")
+
+	// Cleanup existing table
+	let tables = [leftTable, rightTable]
+	tables.forEach(function(table) {
+		while (table.firstChild) {
+			table.removeChild(table.firstChild)
+		}
+	})
 
 	// Generate table header
 	let headers = ["Date", "Amount", "Tags", "Note"]
-	let leftTable = document.getElementById("table-left")
-	let rightTable = document.getElementById("table-right")
 	let tHead = document.createElement("thead")
 	let tr = document.createElement("tr")
 	headers.forEach(function(e) {
@@ -98,4 +106,4 @@ function constructTable(transactions) {
 	rightTable.appendChild(rightBody)
 }
 
-callAPI()
+reloadData()
