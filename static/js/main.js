@@ -27,7 +27,7 @@ function callAPI() {
 	})
 	fetch(request).then(function (resp) {
 		resp.json().then(function (transactions) {
-			constructTable()
+			constructTable(transactions)
 		}).catch(function (err) {
 			console.log(err)
 			console.log("Couldn't convert API data to JSON")
@@ -37,29 +37,67 @@ function callAPI() {
 	})
 }
 
+/*
+ * NOTES:
+ * - Depending on user id render entries in left
+ *   or right table (modulo based on user id).
+ *   Also generate a tbody for each user. This way
+ *   I can also render the caption correctly
+ * - attach the two tbodies two the tables
+ */
 function constructTable(transactions) {
-	let target = document.getElementById("table-grid")
-	let t = document.createElement("table")
-	let thead = document.createElement("thead")
-	let thead_tr = document.createElement("tr")["User", "Amount", "Tags", "Notes"].forEach(function (e) {
-		let thead_tr_th = document.createElement("th")
-		thead_tr_th.appendChild(document.createTextNode(e))
-		thead_tr.appendChild(thead_tr_th)
+
+	// Generate table header
+	let headers = ["Date", "Amount", "Tags", "Note"]
+	let leftTable = document.getElementById("table-left")
+	let rightTable = document.getElementById("table-right")
+	let tHead = document.createElement("thead")
+	let tr = document.createElement("tr")
+	headers.forEach(function(e) {
+		let cell = document.createElement("th")
+		cell.appendChild(document.createTextNode(e))
+		tr.appendChild(cell)
 	})
-	thead.appendChild(thead_tr)
-	t.appendChild(thead)
-	let tbody = document.createElement("tbody")
-	transactions.forEach(function (e) {
-		let tbody_tr = document.createElement("tr")
-		for (let prop in e) {
-			let tbody_tr_td = document.createElement("td")
-			tbody_tr_td.appendChild(document.createTextNode(e[prop]))
-			tbody_tr.appendChild(tbody_tr_td)
+	tHead.appendChild(tr)
+	leftTable.appendChild(tHead)
+	rightTable.appendChild(tHead.cloneNode(true))
+
+	// Generate table body
+	let leftBody = document.createElement("tbody")
+	let rightBody = document.createElement("tbody")
+	leftBody.id = "body-left"
+	rightBody.id = "body-right"
+	transactions.forEach(function(e) {
+		let tr = document.createElement("tr")
+		headers.forEach(function(f) {
+			let cell = document.createElement("td")
+			switch (f) {
+				case "Date":
+					let createdDate = new Date(e.created)
+					let dateCell = document.createTextNode(createdDate.toLocaleString())
+					cell.className = "date"
+					cell.appendChild(dateCell)
+					break
+				case "Amount":
+					cell.appendChild(document.createTextNode(e.amount))
+					break
+				case "Tags":
+					cell.appendChild(document.createTextNode(e.tags.join(", ")))
+					break
+				case "Note":
+					cell.appendChild(document.createTextNode(e.note))
+					break
+			}
+			tr.appendChild(cell)
+		})
+		if (e.user_id === 0) {
+			leftBody.appendChild(tr)
+		} else {
+			rightBody.appendChild(tr)
 		}
-		tbody.appendChild(tbody_tr)
 	})
-	t.appendChild(tbody)
-	target.appendChild(t)
+	leftTable.appendChild(leftBody)
+	rightTable.appendChild(rightBody)
 }
 
 callAPI()

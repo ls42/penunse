@@ -46,6 +46,7 @@ func (t *Transaction) Save(db *bolt.DB) error {
 		id, _ := b.NextSequence()
 		t.ID = int(id)
 		t.Created = time.Now()
+		t.Updated = time.Now()
 		tj, err := json.Marshal(t)
 		if err != nil {
 			return errors.New("unable to serialize transaction to json")

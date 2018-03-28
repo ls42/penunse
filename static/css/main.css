@@ -12,13 +12,10 @@ tbody tr:nth-child(even) {
 }
 
 td.date {
-	font-family: 'SF Mono', Consolas, Inconsolata, monospace;
-	font-size: 0.8em;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+	font-size: 0.8em;
 }
 
 th {
@@ -32,7 +29,7 @@ td {
 
 /* Table grid settings */
 #table-grid {
-	max-width: 800px;
+	max-width: 1200px;
 	margin: 0 auto;
 	display: grid;
 	grid-gap: 10px;
@@ -40,10 +37,10 @@ td {
 	grid-template-columns: repeat(2, 1fr);
 }
 
-.left-table {
+.left {
 	grid-column: 1/2;
 }
 
-.left-table {
+.right {
 	grid-column: 2/2;
 }
