@@ -62,9 +62,9 @@ function constructTable(transactions) {
 	rightBody.id = "body-right"
 	transactions.forEach(function(e) {
 		let tr = document.createElement("tr")
-		headers.forEach(function(f) {
+		headers.forEach(function(header) {
 			let cell = document.createElement("td")
-			switch (f) {
+			switch (header) {
 				case "Date":
 					let createdDate = new Date(e.created)
 					let dateCell = document.createTextNode(createdDate.toLocaleString())
@@ -75,7 +75,12 @@ function constructTable(transactions) {
 					cell.appendChild(document.createTextNode(e.amount))
 					break
 				case "Tags":
-					cell.appendChild(document.createTextNode(e.tags.join(", ")))
+					e.tags.forEach(function(tag) {
+						let tagSpan = document.createElement("span")
+						tagSpan.className = "tag"
+						tagSpan.appendChild(document.createTextNode(tag))
+						cell.appendChild(tagSpan)
+					})
 					break
 				case "Note":
 					cell.appendChild(document.createTextNode(e.note))
