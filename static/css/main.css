@@ -7,24 +7,40 @@ h1 {
 	text-align: center;
 }
 
+/*
 tbody tr:nth-child(even) {
 	background-color: rgba(211, 211, 211, 0.301);
 }
+*/
 
 td.date {
 }
 
 table {
-	font-size: 0.8em;
+	border-collapse: collapse;
 }
 
 th {
-	font-style: italic;
 	text-align: left;
+	color: #666;
+	border-bottom: 2px solid #6678b1;
+	padding: 10px 8px;
 }
 
 td {
-	text-align: center;
+	text-align: left;
+	font-size: 0.8em;
+	padding: 6px 8px;
+	border-bottom: 1px solid #ccc;
+}
+
+tbody tr {
+	color: #666;
+}
+
+
+tbody tr:hover {
+	color: #111;
 }
 
 /* Table grid settings */
