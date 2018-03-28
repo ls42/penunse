@@ -56,11 +56,6 @@ func main() {
 		}
 	})
 	mux.HandleFunc("/api/transaction/read/all", func(w http.ResponseWriter, r *http.Request) {
-		// Debugging only, remove later
-		for k, v := range r.Header {
-			log.Printf("Header %q\t=> %q\n", k, v)
-		}
-
 		ts := penunse.GetTransactions(db)
 		if err != nil {
 			http.Error(w, "cannot serialize transactions", 500)
