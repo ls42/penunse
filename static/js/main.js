@@ -44,7 +44,7 @@ function constructTable(transactions) {
 
 	// Cleanup existing table
 	let tables = [leftTable, rightTable]
-	tables.forEach(function(table) {
+	tables.forEach(function (table) {
 		while (table.firstChild) {
 			table.removeChild(table.firstChild)
 		}
@@ -54,7 +54,7 @@ function constructTable(transactions) {
 	let headers = ["Date", "Amount", "Tags", "Note"]
 	let tHead = document.createElement("thead")
 	let tr = document.createElement("tr")
-	headers.forEach(function(e) {
+	headers.forEach(function (e) {
 		let cell = document.createElement("th")
 		cell.appendChild(document.createTextNode(e))
 		tr.appendChild(cell)
@@ -70,9 +70,9 @@ function constructTable(transactions) {
 	let rightBody = document.createElement("tbody")
 	leftBody.id = "body-left"
 	rightBody.id = "body-right"
-	transactions.forEach(function(e) {
+	transactions.forEach(function (e) {
 		let tr = document.createElement("tr")
-		headers.forEach(function(header) {
+		headers.forEach(function (header) {
 			let cell = document.createElement("td")
 			switch (header) {
 				case "Date":
@@ -85,7 +85,7 @@ function constructTable(transactions) {
 					cell.appendChild(document.createTextNode(e.amount.toFixed(2)))
 					break
 				case "Tags":
-					e.tags.forEach(function(tag) {
+					e.tags.forEach(function (tag) {
 						let tagSpan = document.createElement("span")
 						tagSpan.className = "tag"
 						tagSpan.appendChild(document.createTextNode(tag))
@@ -112,7 +112,7 @@ function constructTable(transactions) {
 			rightBody.appendChild(tr)
 			rightTotal += e.amount
 		}
-		
+
 	})
 	let totalTrLeft = document.createElement("tr")
 	totalTrLeft.className = "total"

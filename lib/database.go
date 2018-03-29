@@ -10,10 +10,10 @@ import (
 // GetTransactions loads all transactions from the database
 func GetTransactions(db *bolt.DB) []Transaction {
 	var ts []Transaction
-	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
 		b.ForEach(func(key, value []byte) error {
+			var t Transaction
 			err := json.Unmarshal(value, &t)
 			if err != nil {
 				log.Fatal(err)
