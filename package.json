@@ -1,0 +1,23 @@
+{
+  "name": "penunse",
+  "version": "1.0.0",
+  "description": "Learn where your money is going. Maybe I'll bake in some useful stats later.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.ls42.de:222/go/penunse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

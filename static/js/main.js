@@ -1,5 +1,5 @@
 import {
 	reloadData
-} from "./modules/serverConnector.js";
+} from "./modules/serverConnector";
 
 reloadData()

@@ -4,3 +4,4 @@ Gopkg.lock
 .idea/
 .cache/
 dist/
+package-lock.json

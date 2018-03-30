@@ -1,12 +1,12 @@
 import {
-	constructTable
-} from "./domManipulator.js"
-import {
 	config
-} from "./config.js"
+} from "./config";
+import {
+	constructTable
+} from "./domManipulator";
 
 // Fetch all transactions from the API servers
-function reloadData() {
+export function reloadData() {
 	let request = new Request(`${config.apiBase}/transaction/read/all`, {
 		headers: new Headers({
 			"X-Clacks-Overhead": "GNU Terry Pratchett"
