@@ -1,9 +1,9 @@
 import {
 	constructTable
-} from "modules/domManipulator.js"
+} from "./domManipulator.js"
 import {
 	config
-} from "modules/config.js"
+} from "./config.js"
 
 // Fetch all transactions from the API servers
 function reloadData() {
