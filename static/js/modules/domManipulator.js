@@ -1,3 +1,8 @@
+// Insert a new tr in both tables to insert a new transaction into the database.
+export function addInsertTRToTable() {
+	console.log("Gonna insert a new TR for you now.")
+}
+
 // Create a table based on `transactions` (which is an array of objects)
 // Usually gets called from `reloadData()` in `modules/serverConnector.js`
 export function constructTable(transactions) {
