@@ -1,4 +1,4 @@
-import * as cfg from "./config.js";
+import * as cfg from "./config.js"
 import * as dm from "./domManipulator.js"
 
 // Fetch all transactions from the API servers
