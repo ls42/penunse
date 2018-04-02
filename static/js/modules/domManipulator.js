@@ -9,7 +9,6 @@ export function addInsertTRToTable(node) {
 	let insertRow = body.insertRow(0)
 	cfg.config.headers.forEach(function (header) {
 		let newTd = document.createElement("td")
-		// TODO: input an td anhaengen dann td an tr haengen, fertig
 		switch (header) {
 			case "Date":
 				newTd.appendChild(document.createTextNode(""))
@@ -26,6 +25,12 @@ export function addInsertTRToTable(node) {
 				break;
 		}
 	})
+}
+
+export function deleteInputAndAppendNewTransaction(node) {
+	// 1. Remove the input row
+	// 2. Append new values to end of table
+	// 3. Nothing
 }
 
 // Create a table based on `transactions` (which is an array of objects)

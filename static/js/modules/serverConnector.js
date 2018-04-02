@@ -19,3 +19,8 @@ export function reloadData() {
 		console.log("Error calling API")
 	})
 }
+
+export function sendNewTransaction(node) {
+	// stuff from inputs to the server and call deleteInputAndAppendNewTransaction
+	// also create toast if server says okay or not.
+}
