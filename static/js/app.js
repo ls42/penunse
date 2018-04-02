@@ -7,6 +7,5 @@ import * as dm from "./modules/domManipulator.js";
 self.sc = sc
 self.dm = dm
 
-
 sc.reloadData()
 // setInterval(sc.reloadData, 20000)
