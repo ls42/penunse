@@ -6,17 +6,25 @@ export function addInsertTRToTable(node) {
 	// 2. Generate new row and insert it into thattable
 	let side = node.parentNode.className
 	let body = document.getElementById(`body-${side}`)
-	let inserRow = body.insertRow(0)
+	let insertRow = body.insertRow(0)
 	cfg.config.headers.forEach(function (header) {
 		let newTd = document.createElement("td")
 		// TODO: input an td anhaengen dann td an tr haengen, fertig
-		let inputId = `input_${header.toLowerCase()}`
-		let newInput = document.createElement("input")
-		newInput.id = inputId
-		newInput.type = "text"
-		newInput.className = "transaction-input"
-		newTd.appendChild(newInput)
-		inserRow.appendChild(newTd)
+		switch (header) {
+			case "Date":
+				newTd.appendChild(document.createTextNode(""))
+				insertRow.appendChild(newTd)
+				break;
+			default:
+				let inputId = `input_${header.toLowerCase()}`
+				let newInput = document.createElement("input")
+				newInput.id = inputId
+				newInput.type = "text"
+				newInput.className = "transaction-input"
+				newTd.appendChild(newInput)
+				insertRow.appendChild(newTd)
+				break;
+		}
 	})
 }
 
