@@ -24,4 +24,10 @@ export function sendNewTransaction(node) {
 	// stuff from inputs to the server and call deleteInputAndAppendNewTransaction
 	// also create toast if server says okay or not.
 	console.log("nice to meet you")
+	let side = node.parentNode.parentNode.className
+	let insertRow = node.parentNode.parentNode.getElementById("insert-row")
+	console.log(insertRow)
+	// let newData = {
+	// 	id: node.getElementById()
+	// }
 }
