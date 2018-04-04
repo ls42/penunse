@@ -23,4 +23,5 @@ export function reloadData() {
 export function sendNewTransaction(node) {
 	// stuff from inputs to the server and call deleteInputAndAppendNewTransaction
 	// also create toast if server says okay or not.
+	console.log("nice to meet you")
 }

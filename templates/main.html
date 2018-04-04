@@ -5,14 +5,18 @@
 
 <div id="table-grid">
 	<div class="left">
+		<div class="button-container">
+			<input id="plus-button-left" type="button" onclick="dm.handlePlusButtonClick(this)" value="+">
+		</div>
 		<table id="table-left" class="transaction-data">
 		</table>
-		<input type="button" onclick="dm.addInsertTRToTable(this)" value="+">
 	</div>
 	<div class="right">
+		<div class="button-container">
+			<input id="plus-button-right" type="button" onclick="dm.handlePlusButtonClick(this)" value="+">
+		</div>
 		<table id="table-right" class="transaction-data">
 		</table>
-		<input type="button" onclick="dm.addInsertTRToTable(this)" value="+">
 	</div>
 </div>
 

@@ -1,10 +1,9 @@
 import * as cfg from "./config.js"
 
 // Insert a new tr in both tables to insert a new transaction into the database.
-export function addInsertTRToTable(node) {
-	// 1. Find the table in which the add-button has been clicked
-	// 2. Generate new row and insert it into thattable
-	let side = node.parentNode.className
+export function handlePlusButtonClick(node) {
+	// Add input row to table
+	let side = node.parentNode.parentNode.className
 	let body = document.getElementById(`body-${side}`)
 	let insertRow = body.insertRow(0)
 	cfg.config.headers.forEach(function (header) {
@@ -25,6 +24,10 @@ export function addInsertTRToTable(node) {
 				break;
 		}
 	})
+
+	// Change `+`-button to submit
+	node.value = "save"
+	node.setAttribute("onclick", "sc.sendNewTransaction(this)")
 }
 
 export function deleteInputAndAppendNewTransaction(node) {
