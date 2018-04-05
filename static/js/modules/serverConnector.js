@@ -21,13 +21,34 @@ export function reloadData() {
 }
 
 export function sendNewTransaction(node) {
-	// stuff from inputs to the server and call deleteInputAndAppendNewTransaction
-	// also create toast if server says okay or not.
-	console.log("nice to meet you")
 	let side = node.parentNode.parentNode.className
-	let insertRow = node.parentNode.parentNode.getElementById("insert-row")
+	let insertRow = document.getElementById(`insert-row-${side}`)
 	console.log(insertRow)
-	// let newData = {
-	// 	id: node.getElementById()
-	// }
+	let newData = {
+		amount: insertRow.children[1].children['input_amount'].value,
+		tags: insertRow.children[2].children['input_tags'].value.trim().split(","),
+		note: insertRow.children[3].children['input_note'].value,
+	}
+	let newDataJSON = JSON.stringify(newData)
+	let request = new Request(`${cfg.config.apiBase}/transaction/create`, {
+		headers: new Headers({
+			"X-Clacks-Overhead": "GNU Terry Pratchett"
+		}),
+		body: newDataJSON,
+	})
+	fetch(request).then(function (resp) {
+		resp.json().then(function (transactions) {
+			// Create a `success`-toast
+			// Remove the `temporary`-flag from the newly inserted TR
+			// or redraw table
+			console.log("I guess it works!")
+		}).catch(function (err) {
+			// Create a `failure`-toast
+			// Remove the newly inserted entry to the table (class `temporary`)
+			console.log(err)
+			console.log("Couldn't convert API data to JSON")
+		})
+	}).catch(function (err) {
+		console.log("Error calling API")
+	})
 }

@@ -6,7 +6,7 @@ export function handlePlusButtonClick(node) {
 	let side = node.parentNode.parentNode.className
 	let body = document.getElementById(`body-${side}`)
 	let insertRow = body.insertRow(0)
-	insertRow.id = `insert-row`
+	insertRow.id = `insert-row-${side}`
 	cfg.config.headers.forEach(function (header) {
 		let newTd = document.createElement("td")
 		switch (header) {
