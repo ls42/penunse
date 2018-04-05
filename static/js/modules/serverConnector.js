@@ -50,5 +50,5 @@ export function sendNewTransaction(node) {
 	}).catch(function (err) {
 		new Toast("Could not send transaction to server", Toast.TYPE_ERROR, 3000)
 		// Remove the newly inserted entry to the table (class `temporary`)
-	})
+	}).then(() => reloadData())
 }
