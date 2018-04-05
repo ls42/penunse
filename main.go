@@ -66,6 +66,7 @@ func main() {
 	mux.HandleFunc("/api/transaction/create", func(w http.ResponseWriter, r *http.Request) {
 		reqBody, err := ioutil.ReadAll(r.Body)
 		defer r.Body.Close()
+		log.Printf("%+v", string(reqBody))
 		if err != nil {
 			http.Error(w, "cannot read data", 400)
 			return
