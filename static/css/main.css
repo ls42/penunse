@@ -73,9 +73,39 @@ tr.total {
 }
 
 .tag {
-	background-color: #FAFAA7;
+	background-color: #fce26f;
 	border-radius: 3px;
 	padding: 1px 4px 1px 4px;
 	margin-right: 3px;
 	white-space: nowrap;
+}
+
+.btn {
+	display: inline-block;
+	border: 1px solid #C9AE34;
+	color: #705D07;
+	border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	font-family: Verdana;
+	width: auto;
+	height: auto;
+	font-size: 14px;
+	padding: 3px 12px;
+	box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D, 0 2px 4px 0 #D4D4D4;
+	-moz-box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D, 0 2px 4px 0 #D4D4D4;
+	-webkit-box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D, 0 2px 4px 0 #D4D4D4;
+	text-shadow: 0 1px 0 #FFFFFF;
+	background-image: linear-gradient(to top, #FCE374, #FCDF5B);
+	background-color: #FCE374;
+}
+
+.btn:hover,
+.btn:active {
+	border: 1px solid #967D09;
+	color: #705D07;
+	box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D;
+	-moz-box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D;
+	-webkit-box-shadow: inset 0 1px 0 0 #FFF6CE, inset 0 -1px 0 0 #E3C852, inset 0 0 0 1px #FCE88D;
+	background-color: #FCDF5B;
 }
