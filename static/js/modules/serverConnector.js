@@ -30,7 +30,6 @@ export function sendNewTransaction(node) {
 		note: insertRow.children[3].children['input_note'].value,
 	}
 	let newDataJSON = JSON.stringify(newData)
-	console.log(newDataJSON)
 	let request = new Request(`${cfg.config.apiBase}/transaction/create`, {
 		headers: new Headers({
 			"X-Clacks-Overhead": "GNU Terry Pratchett"
