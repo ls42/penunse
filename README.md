@@ -10,6 +10,8 @@ There is an API server that's written in Go. It's external dependencies are:
 
 * [Bolt](https://github.com/boltdb/bolt)
 
+This server also hands out a reference JavaScript client if you access the route `/`
+
 
 ## JavaScript reference client
 
