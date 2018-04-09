@@ -1,6 +1,6 @@
 vendor/
 Gopkg.lock
-*.bolt
+*.bolt*
 .idea/
 .cache/
 dist/
