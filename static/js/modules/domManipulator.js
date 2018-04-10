@@ -31,12 +31,6 @@ export function handlePlusButtonClick(node) {
 	node.setAttribute("onclick", "sc.sendNewTransaction(this)")
 }
 
-export function deleteInputAndAppendNewTransaction(node) {
-	// 1. Remove the input row
-	// 2. Append new values to end of table
-	// 3. Nothing
-}
-
 // Create a table based on `transactions` (which is an array of objects)
 // Usually gets called from `reloadData()` in `modules/serverConnector.js`
 export function constructTable(transactions) {
