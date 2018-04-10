@@ -10,7 +10,6 @@ export function reloadData() {
 	})
 	fetch(request).then((resp) => {
 		resp.json().then((transactions) => {
-			console.log(transactions)
 			dm.constructTable(transactions)
 		}).catch((err) => {
 			console.log(err)
