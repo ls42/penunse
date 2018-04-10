@@ -64,6 +64,7 @@ export function constructTable(transactions) {
 	let rightBody = document.createElement("tbody")
 	leftBody.id = "body-left"
 	rightBody.id = "body-right"
+	console.log(transactions)
 	transactions.forEach(function (e) {
 		let tr = document.createElement("tr")
 		cfg.config.headers.forEach(function (header) {
@@ -79,12 +80,14 @@ export function constructTable(transactions) {
 					cell.appendChild(document.createTextNode(e.amount.toFixed(2)))
 					break
 				case "Tags":
-					e.tags.forEach(function (tag) {
-						let tagSpan = document.createElement("span")
-						tagSpan.className = "tag"
-						tagSpan.appendChild(document.createTextNode(tag))
-						cell.appendChild(tagSpan)
-					})
+					if (e.tags !== null) {
+						e.tags.forEach(function (tag) {
+							let tagSpan = document.createElement("span")
+							tagSpan.className = "tag"
+							tagSpan.appendChild(document.createTextNode(tag))
+							cell.appendChild(tagSpan)
+						})
+					}
 					break
 				case "Note":
 					let noteCell
