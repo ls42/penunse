@@ -8,15 +8,15 @@ export function reloadData() {
 			"X-Clacks-Overhead": "GNU Terry Pratchett"
 		})
 	})
-	fetch(request).then(function (resp) {
-		resp.json().then(function (transactions) {
+	fetch(request).then((resp) => {
+		resp.json().then((transactions) => {
 			console.log(transactions)
 			dm.constructTable(transactions)
-		}).catch(function (err) {
+		}).catch((err) => {
 			console.log(err)
 			console.log("Couldn't convert API data to JSON")
 		})
-	}).catch(function (err) {
+	}).catch((err) => {
 		console.log("Error calling API")
 	})
 }
@@ -26,7 +26,7 @@ export function sendNewTransaction(node) {
 	let insertRow = document.getElementById(`insert-row-${side}`)
 	let newData = {
 		user_id: side === "left" ? 0 : 1,
-		amount: Number(insertRow.children[1].children['input_amount'].value),
+		amount: Number(insertRow.children[1].children['input_amount'].value.replace(",", ".")),
 		tags: insertRow.children[2].children['input_tags'].value.trim().toLowerCase().split(","),
 		note: insertRow.children[3].children['input_note'].value,
 	}
@@ -38,7 +38,7 @@ export function sendNewTransaction(node) {
 		method: "POST",
 		body: newDataJSON,
 	})
-	fetch(request).then(function (resp) {
+	fetch(request).then((resp) => {
 		if (resp.ok) {
 			// Remove the `temporary`-flag from the newly inserted TR
 			// or redraw table
@@ -47,8 +47,12 @@ export function sendNewTransaction(node) {
 			// Remove the newly inserted entry to the table (class `temporary`)
 			new Toast("Server not satisfied with our request", Toast.TYPE_ERROR, 3000)
 		}
-	}).catch(function (err) {
+	}).catch((err) => {
 		new Toast("Could not send transaction to server", Toast.TYPE_ERROR, 3000)
 		// Remove the newly inserted entry to the table (class `temporary`)
-	}).then(() => reloadData())
+	}).then(() => {
+		reloadData()
+		node.value = "+"
+		node.setAttribute("onclick", "dm.handlePlusButtonClick(this)")
+	})
 }

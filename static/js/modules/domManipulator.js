@@ -7,7 +7,7 @@ export function handlePlusButtonClick(node) {
 	let body = document.getElementById(`body-${side}`)
 	let insertRow = body.insertRow(0)
 	insertRow.id = `insert-row-${side}`
-	cfg.config.headers.forEach(function (header) {
+	cfg.config.headers.forEach((header) => {
 		let newTd = document.createElement("td")
 		switch (header) {
 			case "Date":
@@ -39,7 +39,7 @@ export function constructTable(transactions) {
 
 	// Cleanup existing table
 	let tables = [leftTable, rightTable]
-	tables.forEach(function (table) {
+	tables.forEach((table) => {
 		while (table.firstChild) {
 			table.removeChild(table.firstChild)
 		}
@@ -48,7 +48,7 @@ export function constructTable(transactions) {
 	// Generate table header
 	let tHead = document.createElement("thead")
 	let tr = document.createElement("tr")
-	cfg.config.headers.forEach(function (e) {
+	cfg.config.headers.forEach((e) => {
 		let cell = document.createElement("th")
 		cell.appendChild(document.createTextNode(e))
 		tr.appendChild(cell)
@@ -65,9 +65,9 @@ export function constructTable(transactions) {
 	leftBody.id = "body-left"
 	rightBody.id = "body-right"
 	console.log(transactions)
-	transactions.forEach(function (e) {
+	transactions.forEach((e) => {
 		let tr = document.createElement("tr")
-		cfg.config.headers.forEach(function (header) {
+		cfg.config.headers.forEach((header) => {
 			let cell = document.createElement("td")
 			switch (header) {
 				case "Date":

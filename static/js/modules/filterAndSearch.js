@@ -1,5 +1,5 @@
 // Fuzzy search for all strings
-String.prototype.fuzzy = function (s) {
+String.prototype.fuzzy = (s) => {
 	var hay = this.toLowerCase(),
 		i = 0,
 		n = -1,
