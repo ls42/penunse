@@ -1,4 +1,4 @@
-package penunse
+package main
 
 import (
 	"encoding/binary"
@@ -40,7 +40,7 @@ type Transaction struct {
 }
 
 // Save saves this Transaction to the database
-func (t *Transaction) Save(db *bolt.DB) error {
+func (t *Transaction) Save(db *DB) error {
 	return db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
 		id, _ := b.NextSequence()

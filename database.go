@@ -1,14 +1,44 @@
-package penunse
+package main
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
+	"os"
 
 	"github.com/boltdb/bolt"
 )
 
+// DB is a clone of the standard bolt.DB
+type DB struct {
+	*bolt.DB
+}
+
+// Open initializes the database
+func (db *DB) Open(path string, mode os.FileMode) error {
+	var err error
+	db.DB, err = bolt.Open(path, mode, nil)
+	if err != nil {
+		return err
+	}
+	err = db.Update(func(tx *bolt.Tx) error {
+		if _, err := tx.CreateBucketIfNotExists([]byte("transactions")); err != nil {
+			return errors.New("error creating bucket `transactions")
+		}
+		if _, err = tx.CreateBucketIfNotExists([]byte("users")); err != nil {
+			return errors.New("error creating bucket `users")
+		}
+		return nil
+	})
+	if err != nil {
+		db.Close()
+		return err
+	}
+	return nil
+}
+
 // GetTransactions loads all transactions from the database
-func GetTransactions(db *bolt.DB) []Transaction {
+func GetTransactions(db *DB) []Transaction {
 	var ts []Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
@@ -33,7 +63,7 @@ func GetTransactions(db *bolt.DB) []Transaction {
 }
 
 // GetTransaction loads a single transaction from the database, by ID.
-func GetTransaction(id string, db *bolt.DB) Transaction {
+func GetTransaction(id string, db *DB) Transaction {
 	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))

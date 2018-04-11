@@ -5,3 +5,4 @@ Gopkg.lock
 .cache/
 dist/
 package-lock.json
+*.exe
