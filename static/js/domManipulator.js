@@ -108,6 +108,7 @@ export function constructTable(transactions) {
 					} else {
 						noteCell = document.createTextNode(e.note)
 					}
+					cell.className = "note-td"
 					cell.title = e.note
 					cell.appendChild(noteCell)
 					break

@@ -118,6 +118,10 @@ tr.total {
 	transition: background 0.2s ease-in-out;
 }
 
+.note-td {
+	min-width: 150px;
+}
+
 .action-button:hover {
 	background: white;
 	color: black;
