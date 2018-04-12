@@ -1,5 +1,5 @@
-import * as sc from "./modules/serverConnector.js"
-import * as dm from "./modules/domManipulator.js";
+import * as sc from "./serverConnector.js"
+import * as dm from "./domManipulator.js";
 
 // Now, usually the app just works fine, but since I'm in development
 // and occasionally I want to call reloadData() from the browser console
@@ -8,4 +8,3 @@ self.sc = sc
 self.dm = dm
 
 sc.reloadData()
-// setInterval(sc.reloadData, 20000)
