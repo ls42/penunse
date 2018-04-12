@@ -56,3 +56,25 @@ export function sendNewTransaction(node) {
 		node.setAttribute("onclick", "dm.handlePlusButtonClick(this)")
 	})
 }
+
+// send API request to delete a Transaction
+export function sendDeleteTransaction(transaction_id) {
+	let request = new Request(`${cfg.config.apiBase}/transaction/delete/${transaction_id}`, {
+		headers: new Headers({
+			"X-Clacks-Overhead": "GNU Terry Pratchett"
+		}),
+		method: "DELETE",
+	})
+	fetch(request).then((resp) => {
+		if (resp.ok) {
+			new Toast("Transaction removed!", Toast.TYPE_DONE, 3000)
+		} else {
+			// Remove the newly inserted entry to the table (class `temporary`)
+			new Toast("Server not satisfied with our request", Toast.TYPE_ERROR, 3000)
+		}
+	}).catch((err) => {
+		new Toast("Could not send delete request to server", Toast.TYPE_ERROR, 3000)
+	}).then(() => {
+		reloadData()
+	})
+}

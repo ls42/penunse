@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -42,5 +43,13 @@ func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 	if err != nil {
 		http.Error(w, "cannot save entry", 500)
 		return
+	}
+}
+func apiDeleteTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
+	userData := r.URL.Path[len("/api/transaction/delete/"):]
+	log.Printf("been asked to remove ID `%s`", userData)
+	if err := DeleteTransaction([]byte(userData), db); err != nil {
+		errorMsg := fmt.Sprintf("transaction `%s` doesn't exist", userData)
+		http.Error(w, errorMsg, 400)
 	}
 }

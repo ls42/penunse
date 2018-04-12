@@ -9,6 +9,7 @@ import (
 
 func main() {
 	port := flag.Int("port", 4202, "port to listen on")
+	flag.Parse()
 
 	db := &DB{}
 	if err := db.Open("penunse.bolt", 0600); err != nil {
@@ -22,6 +23,7 @@ func main() {
 	mux.HandleFunc("/", mainHandler)
 	mux.HandleFunc("/api/transaction/read/all", makeHandler(apiAllTransactions, db))
 	mux.HandleFunc("/api/transaction/create", makeHandler(apiInsertTransaction, db))
+	mux.HandleFunc("/api/transaction/delete/", makeHandler(apiDeleteTransaction, db))
 
 	mux.Handle(
 		"/static/",

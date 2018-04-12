@@ -76,3 +76,14 @@ func GetTransaction(id string, db *DB) Transaction {
 	})
 	return t
 }
+
+// DeleteTransaction deletes a transaction from the database, by ID
+func DeleteTransaction(id []byte, db *DB) error {
+	return db.Update(func(tx *bolt.Tx) error {
+		return tx.Bucket([]byte("transactions")).Delete(id)
+	})
+	// TODO
+	// Looks like the id does not really match the id from the database
+	// debug here why that's the case -> id should be exactly the id of
+	// transaction
+}

@@ -1,4 +1,5 @@
 import * as dm from "./domManipulator.js"
+import * as serverConnector from "./serverConnector.js"
 
 export function mouseEnterTransactionTR(event) {
 	dm.inserEditButtonsToTR(event.target)
@@ -13,5 +14,6 @@ export function clickEditButton(event) {
 }
 
 export function clickDeleteButton(event) {
-	console.log(`delete transaction #${event.target.dataset.transactionId}`)
+	let transaction_id = event.target.dataset.transactionId
+	sc.sendDeleteTransaction(transaction_id)
 }

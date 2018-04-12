@@ -58,15 +58,3 @@ func (t *Transaction) Save(db *DB) error {
 		return nil
 	})
 }
-
-// Delete removes this Transaction from the database
-func (t *Transaction) Delete(db *bolt.DB) error {
-	return db.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("transactions"))
-		err := b.Delete(itob(t.ID))
-		if err != nil {
-			return errors.New("unable to delete this transaction")
-		}
-		return nil
-	})
-}
