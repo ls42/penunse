@@ -66,6 +66,7 @@ export function constructTable(transactions) {
 	rightBody.id = "body-right"
 	transactions.forEach((e) => {
 		let tr = document.createElement("tr")
+		tr.id = e.id
 		cfg.config.headers.forEach((header) => {
 			let cell = document.createElement("td")
 			switch (header) {
