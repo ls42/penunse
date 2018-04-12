@@ -9,9 +9,9 @@ export function mouseOutTransactionTR(event) {
 }
 
 export function clickEditButton(event) {
-	console.log(`edit transaction #${event.target.id}`)
+	console.log(`edit transaction #${event.target.dataset.transactionId}`)
 }
 
 export function clickDeleteButton(event) {
-	console.log(`delete transaction #${event.target.id}`)
+	console.log(`delete transaction #${event.target.dataset.transactionId}`)
 }

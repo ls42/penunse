@@ -119,14 +119,14 @@ export function constructTable(transactions) {
 					editButton.className = "edit-button action-button"
 					editButton.value = "edit"
 					editButton.style.visibility = "hidden";
-					editButton.addEventListener("onclick", ev.clickEditButton)
+					editButton.addEventListener("click", ev.clickEditButton)
 					cell.className = "action-field"
 					let deleteButton = document.createElement("input")
 					deleteButton.type = "button"
 					deleteButton.setAttribute("data-transaction-id", e.id)
 					deleteButton.className = "delete-button action-button"
 					deleteButton.value = "delete"
-					deleteButton.addEventListener("onclick", ev.clickDeleteButton)
+					deleteButton.addEventListener("click", ev.clickDeleteButton)
 					deleteButton.style.visibility = "hidden";
 					cell.appendChild(editButton)
 					cell.appendChild(deleteButton)
