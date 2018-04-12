@@ -105,15 +105,14 @@ tr.total {
 }
 
 .action-field {
-	font-size: 0.7em;
+	font-size: 0.9em;
 	white-space: nowrap;
 }
 
 .action-button {
 	border: none;
-	border-radius: 3px;
+	border-radius: 2px;
 	cursor: pointer;
-	box-shadow: 1px 1px;
 	color: white;
 	transition: background 0.2s ease-in-out;
 }
@@ -122,16 +121,19 @@ tr.total {
 	min-width: 150px;
 }
 
-.action-button:hover {
-	background: white;
-	color: black;
-}
-
 .edit-button {
-	background-color: lightgray;
+	background: rgb(190, 190, 190);
 	margin-right: 3px;
 }
 
+.edit-button:hover {
+	background: rgb(220, 220, 220)
+}
+
 .delete-button {
-	background-color: lightcoral;
+	background: rgb(255, 90, 90);
+}
+
+.delete-button:hover {
+	background: rgb(255, 140, 140);
 }
