@@ -6,3 +6,4 @@ Gopkg.lock
 dist/
 package-lock.json
 *.exe
+penunse
