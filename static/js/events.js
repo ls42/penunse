@@ -13,5 +13,5 @@ export function clickEditButton(event) {
 }
 
 export function clickDeleteButton(event) {
-	console.log(`delete transaction # ${event.target.id}`)
+	console.log(`delete transaction #${event.target.id}`)
 }
