@@ -77,7 +77,7 @@ export function constructTable(transactions) {
 		let tr = document.createElement("tr")
 		tr.id = e.id
 		tr.addEventListener("mouseenter", ev.mouseEnterTransactionTR)
-		tr.addEventListener("mouseout", ev.mouseOutTransactionTR)
+		tr.addEventListener("mouseleave", ev.mouseOutTransactionTR)
 		tr.className = "transaction-data-row"
 		cfg.config.headers.forEach((header) => {
 			let cell = document.createElement("td")
@@ -158,12 +158,17 @@ export function constructTable(transactions) {
 }
 
 // This function gets called on mouseover of a TR and inserts the edit
-// buttons into the 'Action' column
+// buttons into the 'Action' column of the current row
 export function inserEditButtonsToTR(node) {
-	console.log(node)
-	node.createTextNode(`FOO: ${node.id}`)
+	let actionTD = node.querySelectorAll('.action-field')[0]
+	actionTD.appendChild(document.createTextNode(`FOO: ${node.id}`))
 }
 
+// This function gets called on mouseout of a TR and cleans the 'Action' column
+// of the current row
 export function removeEditButtonsFromTR(node) {
-	node.createTextNode("")
+	let actionTD = node.querySelectorAll('.action-field')[0]
+	while (actionTD.firstChild) {
+		actionTD.removeChild(actionTD.firstChild)
+	}
 }
