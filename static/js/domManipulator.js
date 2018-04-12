@@ -173,8 +173,8 @@ export function constructTable(transactions) {
 	rightTable.appendChild(rightBody)
 }
 
-// This function gets called on mouseover of a TR and inserts the edit
-// buttons into the 'Action' column of the current row
+// This function gets called on mouseover of a TR and makes
+// the action buttons visible
 export function inserEditButtonsToTR(node) {
 	let actionTD = node.querySelectorAll('.action-field')[0]
 	for (let i = 0; i < actionTD.children.length; i++) {
@@ -182,8 +182,8 @@ export function inserEditButtonsToTR(node) {
 	}
 }
 
-// This function gets called on mouseout of a TR and cleans the 'Action' column
-// of the current row
+// This function gets called on mouseout of a TR and hides
+// the action buttons
 export function removeEditButtonsFromTR(node) {
 	let actionTD = node.querySelectorAll('.action-field')[0]
 	for (let i = 0; i < actionTD.children.length; i++) {
