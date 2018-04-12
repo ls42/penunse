@@ -161,7 +161,20 @@ export function constructTable(transactions) {
 // buttons into the 'Action' column of the current row
 export function inserEditButtonsToTR(node) {
 	let actionTD = node.querySelectorAll('.action-field')[0]
-	actionTD.appendChild(document.createTextNode(`FOO: ${node.id}`))
+	let editButton = document.createElement("input")
+	editButton.type = "button"
+	editButton.setAttribute("data-transaction-id", node.id)
+	editButton.className = "edit-button action-button"
+	editButton.value = "edit"
+	editButton.addEventListener("onclick", ev.clickEditButton)
+	let deleteButton = document.createElement("input")
+	deleteButton.type = "button"
+	deleteButton.setAttribute("data-transaction-id", node.id)
+	deleteButton.className = "delete-button action-button"
+	deleteButton.value = "delete"
+	deleteButton.addEventListener("onclick", ev.clickDeleteButton)
+	actionTD.appendChild(editButton)
+	actionTD.appendChild(deleteButton)
 }
 
 // This function gets called on mouseout of a TR and cleans the 'Action' column

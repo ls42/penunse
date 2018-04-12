@@ -7,3 +7,11 @@ export function mouseEnterTransactionTR(event) {
 export function mouseOutTransactionTR(event) {
 	dm.removeEditButtonsFromTR(event.target)
 }
+
+export function clickEditButton(event) {
+	console.log(`edit transaction #${event.target.id}`)
+}
+
+export function clickDeleteButton(event) {
+	console.log(`delete transaction # ${event.target.id}`)
+}
