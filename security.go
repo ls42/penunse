@@ -1,4 +1,4 @@
-package penunse
+package main
 
 import (
 	"net/http"
