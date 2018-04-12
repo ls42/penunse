@@ -1,4 +1,5 @@
 import * as cfg from "./config.js"
+import * as ev from "./events.js"
 
 // Insert a new tr in both tables to insert a new transaction into the database.
 export function handlePlusButtonClick(node) {
@@ -11,6 +12,10 @@ export function handlePlusButtonClick(node) {
 		let newTd = document.createElement("td")
 		switch (header) {
 			case "Date":
+				newTd.appendChild(document.createTextNode(""))
+				insertRow.appendChild(newTd)
+				break;
+			case "Action":
 				newTd.appendChild(document.createTextNode(""))
 				insertRow.appendChild(newTd)
 				break;
@@ -50,7 +55,11 @@ export function constructTable(transactions) {
 	let tr = document.createElement("tr")
 	cfg.config.headers.forEach((e) => {
 		let cell = document.createElement("th")
-		cell.appendChild(document.createTextNode(e))
+		if (e !== "Action") {
+			cell.appendChild(document.createTextNode(e))
+		} else {
+			cell.appendChild(document.createTextNode(""))
+		}
 		tr.appendChild(cell)
 	})
 	tHead.appendChild(tr)
@@ -67,6 +76,9 @@ export function constructTable(transactions) {
 	transactions.forEach((e) => {
 		let tr = document.createElement("tr")
 		tr.id = e.id
+		tr.addEventListener("mouseenter", ev.mouseEnterTransactionTR)
+		tr.addEventListener("mouseout", ev.mouseOutTransactionTR)
+		tr.className = "transaction-data-row"
 		cfg.config.headers.forEach((header) => {
 			let cell = document.createElement("td")
 			switch (header) {
@@ -99,6 +111,9 @@ export function constructTable(transactions) {
 					cell.title = e.note
 					cell.appendChild(noteCell)
 					break
+				case "Action":
+					// This is the target for the action buttons
+					cell.className = "action-field"
 			}
 			tr.appendChild(cell)
 		})
@@ -140,4 +155,15 @@ export function constructTable(transactions) {
 	rightBody.appendChild(totalTrRight)
 	leftTable.appendChild(leftBody)
 	rightTable.appendChild(rightBody)
+}
+
+// This function gets called on mouseover of a TR and inserts the edit
+// buttons into the 'Action' column
+export function inserEditButtonsToTR(node) {
+	console.log(node)
+	node.createTextNode(`FOO: ${node.id}`)
+}
+
+export function removeEditButtonsFromTR(node) {
+	node.createTextNode("")
 }
