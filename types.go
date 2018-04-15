@@ -6,21 +6,24 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
+	"github.com/jinzhu/gorm"
 )
 
 // User represents a user of this software
 type User struct {
+	gorm.Model
 	ID      int    `json:"id"`
 	Login   string `json:"login"`
 	First   string `json:"first"`
 	Created time.Time
 	Updated time.Time
 	Deleted time.Time
-	Pass    []byte
+	Pass    []byte `json:"pass"`
 }
 
 // Transaction is an action that affects your depot
 type Transaction struct {
+	gorm.Model
 	ID      int       `json:"id"`
 	User    int       `json:"user_id"`
 	Amount  float32   `json:"amount"`
