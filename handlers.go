@@ -25,6 +25,13 @@ func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *DB) {
 	json.NewEncoder(w).Encode(ts)
 }
 
+func apiTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
+	userData := r.URL.Path[len("/api/transaction/read/"):]
+	t := GetTransaction([]byte(userData), db)
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	json.NewEncoder(w).Encode(t)
+}
+
 func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()

@@ -1,20 +1,12 @@
 package main
 
 import (
-	"encoding/binary"
 	"encoding/json"
 	"errors"
 	"time"
 
 	"github.com/boltdb/bolt"
 )
-
-// itob returns an 8-byte big endian representation of v.
-func itob(v int) []byte {
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, uint64(v))
-	return b
-}
 
 // User represents a user of this software
 type User struct {

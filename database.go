@@ -63,27 +63,23 @@ func GetTransactions(db *DB) []Transaction {
 }
 
 // GetTransaction loads a single transaction from the database, by ID.
-func GetTransaction(id string, db *DB) Transaction {
+func GetTransaction(id []byte, db *DB) Transaction {
 	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
+		c := b.Cursor()
+		bucketContainsData, bucketFirstData := c.First()
+		log.Printf("%d", btoi(bucketContainsData))
+		log.Printf("%s", string(bucketFirstData))
 		value := b.Get([]byte(id))
-		err := json.Unmarshal(value, &t)
-		if err != nil {
-			log.Fatal(err)
-		}
-		return nil
+		return json.Unmarshal(value, &t)
 	})
 	return t
 }
 
-// DeleteTransaction deletes a transaction from the database, by ID
+// DeleteTransaction deletes a transaction from the database, by ID.
 func DeleteTransaction(id []byte, db *DB) error {
 	return db.Update(func(tx *bolt.Tx) error {
 		return tx.Bucket([]byte("transactions")).Delete(id)
 	})
-	// TODO
-	// Looks like the id does not really match the id from the database
-	// debug here why that's the case -> id should be exactly the id of
-	// transaction
 }
