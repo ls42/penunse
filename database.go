@@ -67,10 +67,6 @@ func GetTransaction(id []byte, db *DB) Transaction {
 	var t Transaction
 	db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("transactions"))
-		c := b.Cursor()
-		bucketContainsData, bucketFirstData := c.First()
-		log.Printf("%d", btoi(bucketContainsData))
-		log.Printf("%s", string(bucketFirstData))
 		value := b.Get([]byte(id))
 		return json.Unmarshal(value, &t)
 	})
