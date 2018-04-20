@@ -27,11 +27,17 @@ type Transaction struct {
 	ID      int       `json:"id"`
 	User    int       `json:"user_id"`
 	Amount  float32   `json:"amount"`
-	Tags    []string  `json:"tags"`
+	Tags    []Tag     `json:"tags" gorm:"many2many:transaction_tags;"`
 	Note    string    `json:"note"`
 	Created time.Time `json:"created"`
 	Updated time.Time `json:"updated"`
 	Deleted time.Time `json:"deleted"`
+}
+
+// Tag is basically just a string
+type Tag struct {
+	gorm.Model
+	Name string
 }
 
 // Save saves this Transaction to the database
@@ -52,4 +58,21 @@ func (t *Transaction) Save(db *DB) error {
 		}
 		return nil
 	})
+}
+
+// Command line options packed together
+type params struct {
+	port   int
+	dbhost string
+	dbport int
+	dbuser string
+	dbname string
+	dbpass string
+}
+
+func (p *params) validate() error {
+	if p.dbpass == "foo" {
+		return errors.New("database password not provided")
+	}
+	return nil
 }
