@@ -1,30 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
-
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 func main() {
 	p := parseFlags()
-
-	dbParams := fmt.Sprintf(
-		"host=%s port=%d user=%s dbname=%s password=%s",
-		p.dbhost,
-		p.dbport,
-		p.dbuser,
-		p.dbname,
-		p.dbpass)
-	db, err := gorm.Open("postgres", dbParams)
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := prepareDB(&p)
 	defer db.Close()
+
+	var firstEntry Transaction
+	db.First(&firstEntry, 1)
+	log.Printf("%+v\n", firstEntry)
 
 	mux := http.NewServeMux()
 
@@ -32,7 +21,7 @@ func main() {
 	mux.HandleFunc("/", mainHandler)
 	// mux.HandleFunc("/api/transaction/read", makeHandler(apiAllTransactions, db))
 	// mux.HandleFunc("/api/transaction/read/", makeHandler(apiTransaction, db))
-	// mux.HandleFunc("/api/transaction/create", makeHandler(apiInsertTransaction, db))
+	mux.HandleFunc("/api/transaction/create", makeHandler(apiInsertTransaction, db))
 	// mux.HandleFunc("/api/transaction/delete/", makeHandler(apiDeleteTransaction, db))
 
 	mux.Handle(

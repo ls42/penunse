@@ -6,9 +6,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/jinzhu/gorm"
 )
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, *DB), db *DB) http.HandlerFunc {
+func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fn(w, r, db)
 	}
@@ -32,7 +34,7 @@ func apiTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 	json.NewEncoder(w).Encode(t)
 }
 
-func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
+func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	log.Printf("%+v", string(reqBody))
@@ -46,11 +48,7 @@ func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 		http.Error(w, "invalid json", 400)
 		return
 	}
-	err = t.Save(db)
-	if err != nil {
-		http.Error(w, "cannot save entry", 500)
-		return
-	}
+	t.Create(db)
 }
 func apiDeleteTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 	userData := r.URL.Path[len("/api/transaction/delete/"):]

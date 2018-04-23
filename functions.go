@@ -3,7 +3,11 @@ package main
 import (
 	"encoding/binary"
 	"flag"
+	"fmt"
 	"log"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 // itob returns an 8-byte big endian representation of v.
@@ -13,6 +17,7 @@ func itob(v int) []byte {
 	return b
 }
 
+// parseFlags defines and then parses all command line flags
 func parseFlags() params {
 	p := params{}
 	flag.IntVar(&p.port, "port", 4202, "port to listen on")
@@ -26,4 +31,22 @@ func parseFlags() params {
 		log.Fatal(err)
 	}
 	return p
+}
+
+func prepareDB(p *params) *gorm.DB {
+	dbParams := fmt.Sprintf(
+		"host=%s port=%d user=%s dbname=%s password=%s",
+		p.dbhost,
+		p.dbport,
+		p.dbuser,
+		p.dbname,
+		p.dbpass)
+	db, err := gorm.Open("postgres", dbParams)
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Tag{})
+	db.AutoMigrate(&Transaction{})
+	return db
 }
