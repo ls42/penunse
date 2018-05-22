@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"os"
 
 	"github.com/boltdb/bolt"
+	"github.com/jinzhu/gorm"
 )
 
 // DB is a clone of the standard bolt.DB
@@ -38,27 +38,9 @@ func (db *DB) Open(path string, mode os.FileMode) error {
 }
 
 // GetTransactions loads all transactions from the database
-func GetTransactions(db *DB) []Transaction {
+func GetTransactions(db *gorm.DB) []Transaction {
 	var ts []Transaction
-	db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("transactions"))
-		c := b.Cursor()
-		bucketContainsData, _ := c.First()
-		if bucketContainsData == nil {
-			ts = append(ts, Transaction{})
-			return nil
-		}
-		b.ForEach(func(key, value []byte) error {
-			var t Transaction
-			err := json.Unmarshal(value, &t)
-			if err != nil {
-				log.Fatal(err)
-			}
-			ts = append(ts, t)
-			return nil
-		})
-		return nil
-	})
+	db.Find(&ts)
 	return ts
 }
 

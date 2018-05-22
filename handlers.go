@@ -21,8 +21,9 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "main", nil)
 }
 
-func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *DB) {
+func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	ts := GetTransactions(db)
+	log.Printf("%+v", ts)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(ts)
 }
@@ -34,7 +35,8 @@ func apiTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
 	json.NewEncoder(w).Encode(t)
 }
 
-func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+func qapiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	// TODO: set ID field to NIL or something and use an auto-generated one.
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	log.Printf("%+v", string(reqBody))

@@ -32,7 +32,7 @@ type Transaction struct {
 
 // Tag is basically just a string
 type Tag struct {
-	ID   uint
+	gorm.Model
 	Name string
 }
 

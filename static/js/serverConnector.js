@@ -3,7 +3,7 @@ import * as dm from "./domManipulator.js"
 
 // Fetch all transactions from the API servers
 export function reloadData() {
-	let request = new Request(`${cfg.config.apiBase}/transaction/read/all`, {
+	let request = new Request(`${cfg.config.apiBase}/transaction/read`, {
 		headers: new Headers({
 			"X-Clacks-Overhead": "GNU Terry Pratchett"
 		})
@@ -12,7 +12,7 @@ export function reloadData() {
 		resp.json().then((transactions) => {
 			dm.constructTable(transactions)
 		}).catch((err) => {
-			console.log(err)
+			console.log(transactions)
 			console.log("Couldn't convert API data to JSON")
 		})
 	}).catch((err) => {
