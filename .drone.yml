@@ -1,0 +1,12 @@
+pipeline:
+  backend:
+    image: golang
+    commands:
+      - go get github.com/boltdb/bolt
+      - go get golang.org/x/crypto/bcrypt
+      - go get github.com/jinzhu/gorm
+      - go get github.com/qor/auth
+      - go get github.com/qor/session
+      - go fmt $(go list ./... | grep -v /vendor/)
+      - go vet $(go list ./... | grep -v /vendor/)
+      - go test $(go list ./... | grep -v /vendor/)
