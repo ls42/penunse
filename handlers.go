@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/jinzhu/gorm"
 )
@@ -28,11 +29,15 @@ func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	json.NewEncoder(w).Encode(ts)
 }
 
-func apiTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
-	userData := r.URL.Path[len("/api/transaction/read/"):]
-	t := GetTransaction([]byte(userData), db)
+func apiTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) error {
+	userID, err := strconv.Atoi(r.URL.Path[len("/api/transaction/read/"):])
+	if err != nil {
+		return err
+	}
+	t := GetTransaction(userID, db)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(t)
+	return nil
 }
 
 func qapiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {

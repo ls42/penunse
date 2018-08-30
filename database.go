@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"os"
 
@@ -45,13 +44,9 @@ func GetTransactions(db *gorm.DB) []Transaction {
 }
 
 // GetTransaction loads a single transaction from the database, by ID.
-func GetTransaction(id []byte, db *DB) Transaction {
+func GetTransaction(id int, db *gorm.DB) Transaction {
 	var t Transaction
-	db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("transactions"))
-		value := b.Get([]byte(id))
-		return json.Unmarshal(value, &t)
-	})
+	db.Find(&t, id)
 	return t
 }
 

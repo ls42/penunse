@@ -1,6 +1,7 @@
 vendor/
 Gopkg.lock
 *.bolt*
+*.sqlite3
 .idea/
 .cache/
 dist/

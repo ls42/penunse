@@ -3,11 +3,10 @@ package main
 import (
 	"encoding/binary"
 	"flag"
-	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 // itob returns an 8-byte big endian representation of v.
@@ -34,14 +33,7 @@ func parseFlags() params {
 }
 
 func prepareDB(p *params) *gorm.DB {
-	dbParams := fmt.Sprintf(
-		"host=%s port=%d user=%s dbname=%s password=%s",
-		p.dbhost,
-		p.dbport,
-		p.dbuser,
-		p.dbname,
-		p.dbpass)
-	db, err := gorm.Open("postgres", dbParams)
+	db, err := gorm.Open("sqlite3", "./database.sqlite3")
 	if err != nil {
 		log.Fatal(err)
 	}
