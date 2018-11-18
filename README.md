@@ -1,8 +1,13 @@
 # Penunse Personal Expense Tracker
 
-Learn where your money is going. Maybe I'll bake in some useful stats later.
+Expense Tracker Web Application
 
 ## Architecture
+
+This project is made of two parts:
+
+1. An API server, that handles all data storage tasks and makes the data available via a REST interface.
+1. A reference client, that is written in JavaScript, CSS and HTML.
 
 ### API Server
 
