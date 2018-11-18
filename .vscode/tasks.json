@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "BUILD MY PROJECT",
+			"type": "shell",
+			"command": "go build -o build/${workspaceFolderBasename}",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

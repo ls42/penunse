@@ -1,10 +1,4 @@
-vendor/
-Gopkg.lock
-*.bolt*
-*.sqlite3
-.idea/
-.cache/
+build/
+go.sum
+data/*.db
 dist/
-package-lock.json
-*.exe
-penunse
