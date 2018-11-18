@@ -24,7 +24,6 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	ts := GetTransactions(db)
-	log.Printf("%+v", ts)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(ts)
 }

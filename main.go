@@ -11,10 +11,6 @@ func main() {
 	db := prepareDB(&p)
 	defer db.Close()
 
-	var firstEntry Transaction
-	db.First(&firstEntry, 1)
-	log.Printf("%+v\n", firstEntry)
-
 	mux := http.NewServeMux()
 
 	// TODO: Route to login or main view here

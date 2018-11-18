@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	"github.com/boltdb/bolt"
@@ -40,6 +41,9 @@ func (db *DB) Open(path string, mode os.FileMode) error {
 func GetTransactions(db *gorm.DB) []Transaction {
 	var ts []Transaction
 	db.Find(&ts)
+	for _, trans := range ts {
+		fmt.Printf("%+v\n", trans)
+	}
 	return ts
 }
 
