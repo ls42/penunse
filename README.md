@@ -28,3 +28,18 @@ So far these are the dependecies I think I need (sure we can strip those too, so
 * [ToasterJS](https://github.com/ZitRos/toaster-js)
 
 The client talks to the server via the JavaScript Request API. It's an REST API.
+
+## Tasks
+
+### Update data/penunse.sql
+
+This might need to be updated once in a while, when the gorm schema changes, or when I want to add more sample data (or hundred other reasons).
+
+```bash
+sqlite3 data/penunse.db
+sqlite> .output data/penunse.sql
+sqlite> .dump
+sqlite> .quit
+# asy peasy
+```
+
