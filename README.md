@@ -40,6 +40,6 @@ sqlite3 data/penunse.db
 sqlite> .output data/penunse.sql
 sqlite> .dump
 sqlite> .quit
-# asy peasy
+# easy peasy
 ```
 
