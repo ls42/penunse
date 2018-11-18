@@ -44,6 +44,7 @@ func GetTransactions(db *gorm.DB) []Transaction {
 	for _, trans := range ts {
 		fmt.Printf("%+v\n", trans)
 	}
+	fmt.Println("")
 	return ts
 }
 

@@ -57,7 +57,6 @@ type params struct {
 func (p *params) validate() error {
 	if p.dbpass == "foo" {
 		// TODO: CLEANUP
-		return nil
 		return errors.New("database password not provided")
 	}
 	return nil
