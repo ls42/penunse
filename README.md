@@ -11,7 +11,7 @@ This project is made of two parts:
 
 ### API Server
 
-There is an API server that's written in Go. It's external dependencies are listed in [go.mod](~stephan/penunse/tree/master/go.mod)
+There is an API server that's written in Go. It's external dependencies are listed in [go.mod](penunse/tree/master/go.mod)
 
 
 ### JavaScript reference client
