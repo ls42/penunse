@@ -1,4 +1,4 @@
-# Penunse Personal Expense Tracker
+# Penunse
 
 Expense Tracker Web Application
 
