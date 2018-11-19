@@ -40,7 +40,9 @@ func (db *DB) Open(path string, mode os.FileMode) error {
 // GetTransactions loads all transactions from the database
 func GetTransactions(db *gorm.DB) []Transaction {
 	var ts []Transaction
-	db.Find(&ts)
+	db.Table("transactions").
+		Preload("Tags").
+		Find(&ts)
 	for _, trans := range ts {
 		fmt.Printf("%+v\n", trans)
 	}

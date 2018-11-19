@@ -96,7 +96,7 @@ export function constructTable(transactions) {
 						e.tags.forEach(function (tag) {
 							let tagSpan = document.createElement("span")
 							tagSpan.className = "tag"
-							tagSpan.appendChild(document.createTextNode(tag))
+							tagSpan.appendChild(document.createTextNode(tag.name))
 							cell.appendChild(tagSpan)
 						})
 					}
