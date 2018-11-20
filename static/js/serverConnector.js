@@ -27,12 +27,23 @@ export function reloadData() {
 export function sendNewTransaction(node) {
   let side = node.parentNode.parentNode.className
   let insertRow = document.getElementById(`insert-row-${side}`)
+  let tags = []
+  insertRow.
+    children[2].
+    children['input_tags'].
+    value.
+    trim().
+    toLowerCase().
+    split(",").
+    forEach(tag => {
+      tags.push({ name: tag })
+    })
   let newData = {
     user_id: side === "left" ? 0 : 1,
     amount: Number(insertRow.children[1].children['input_amount'].value.replace(",", ".")),
     // TODO: Make array of strings an array ob objects
     //       to satisfy nested structs on the go sideu
-    tags: insertRow.children[2].children['input_tags'].value.trim().toLowerCase().split(","),
+    tags: tags,
     note: insertRow.children[3].children['input_note'].value,
   }
   let newDataJSON = JSON.stringify(newData)
