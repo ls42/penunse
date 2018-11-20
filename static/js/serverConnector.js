@@ -30,6 +30,8 @@ export function sendNewTransaction(node) {
 	let newData = {
 		user_id: side === "left" ? 0 : 1,
 		amount: Number(insertRow.children[1].children['input_amount'].value.replace(",", ".")),
+		// TODO: Make array of strings an array ob objects
+		//       to satisfy nested structs on the go side
 		tags: insertRow.children[2].children['input_tags'].value.trim().toLowerCase().split(","),
 		note: insertRow.children[3].children['input_note'].value,
 	}
