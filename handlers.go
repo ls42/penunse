@@ -43,6 +43,8 @@ func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	log.Printf("new entry:\t%+v", string(reqBody))
+	// TODO: Check here if the new entry has an ID. If it does,
+	//       update an existing entry
 	if err != nil {
 		http.Error(w, "cannot read data", 400)
 		return
@@ -55,12 +57,4 @@ func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		return
 	}
 	t.Create(db)
-}
-func apiDeleteTransaction(w http.ResponseWriter, r *http.Request, db *DB) {
-	userData := r.URL.Path[len("/api/transaction/delete/"):]
-	log.Printf("been asked to remove ID `%s`", userData)
-	if err := DeleteTransaction([]byte(userData), db); err != nil {
-		errorMsg := fmt.Sprintf("transaction `%s` doesn't exist", userData)
-		http.Error(w, errorMsg, 400)
-	}
 }

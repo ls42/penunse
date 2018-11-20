@@ -17,7 +17,6 @@ func main() {
 	mux.HandleFunc("/", mainHandler)
 	mux.HandleFunc("/api/transaction/read", makeHandler(apiAllTransactions, db))
 	mux.HandleFunc("/api/transaction/create", makeHandler(apiInsertTransaction, db))
-	// mux.HandleFunc("/api/transaction/delete/", makeHandler(apiDeleteTransaction, db))
 
 	mux.Handle(
 		"/static/",
