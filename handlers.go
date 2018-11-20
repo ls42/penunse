@@ -39,7 +39,7 @@ func apiTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) error {
 	return nil
 }
 
-func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+func apiUpsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	log.Printf("new entry:\t%+v", string(reqBody))

@@ -20,7 +20,7 @@ export function reloadData() {
 }
 
 // Prepare form data and send it to API server
-export function sendNewTransaction(node) {
+export function submitTransaction(node) {
   let side = node.parentNode.parentNode.className
   let insertRow = document.getElementById(`insert-row-${side}`)
   let tags = []

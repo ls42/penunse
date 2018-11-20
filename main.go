@@ -16,7 +16,8 @@ func main() {
 	// TODO: Route to login or main view here
 	mux.HandleFunc("/", mainHandler)
 	mux.HandleFunc("/api/transaction/read", makeHandler(apiAllTransactions, db))
-	mux.HandleFunc("/api/transaction/create", makeHandler(apiInsertTransaction, db))
+	mux.HandleFunc("/api/transaction/create", makeHandler(apiUpsertTransaction, db))
+	mux.HandleFunc("/api/transaction/update", makeHandler(apiUpsertTransaction, db))
 
 	mux.Handle(
 		"/static/",

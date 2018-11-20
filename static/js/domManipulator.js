@@ -33,7 +33,7 @@ export function handlePlusButtonClick(node) {
 
   // Change `+`-button to submit
   node.value = "save"
-  node.setAttribute("onclick", "sc.sendNewTransaction(this)")
+  node.setAttribute("onclick", "sc.submitTransaction(this)")
 }
 
 // Create a table based on `transactions` (which is an array of objects)
@@ -121,6 +121,7 @@ export function constructTable(transactions) {
           editButton.value = "edit"
           editButton.style.visibility = "hidden";
           editButton.addEventListener("click", ev.clickEditButton)
+
           cell.className = "action-field"
           let deleteButton = document.createElement("input")
           deleteButton.type = "button"
@@ -190,11 +191,4 @@ export function removeEditButtonsFromTR(node) {
   for (let i = 0; i < actionTD.children.length; i++) {
     actionTD.children[i].style.visibility = "hidden"
   }
-}
-
-// This function gets called on page load and adds the
-// Name of the users above the table
-// TODO: Implement
-export function nameHeaders() {
-  console.log("Coming soon")
 }
