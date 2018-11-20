@@ -39,11 +39,10 @@ func apiTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) error {
 	return nil
 }
 
-func qapiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	// TODO: set ID field to NIL or something and use an auto-generated one.
+func apiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
-	log.Printf("%+v", string(reqBody))
+	log.Printf("new entry:\t%+v", string(reqBody))
 	if err != nil {
 		http.Error(w, "cannot read data", 400)
 		return
@@ -51,6 +50,7 @@ func qapiInsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) 
 	var t Transaction
 	err = json.Unmarshal(reqBody, &t)
 	if err != nil {
+		fmt.Printf("%v", err)
 		http.Error(w, "invalid json", 400)
 		return
 	}
