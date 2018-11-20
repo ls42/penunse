@@ -3,17 +3,13 @@ import * as dm from "./domManipulator.js"
 
 // Fetch all transactions from the API servers
 export function reloadData() {
-  let request = new Request(`${cfg.config.apiBase}/transaction/read`, {
-    headers: new Headers({
-      "X-Clacks-Overhead": "GNU Terry Pratchett"
-    })
-  })
+  let request = new Request(`${cfg.config.apiBase}/transaction/read`)
   fetch(request).then((resp) => {
     resp.json().then((transactions) => {
+      console.log(transactions)
       dm.constructTable(transactions)
     }).catch((err) => {
       new Toast("API server sends garbage, contact support", Toast.TYPE_ERROR, 3000)
-      console.log(transactions)
       console.log("Couldn't convert API data to JSON")
     })
   }).catch((err) => {
@@ -46,9 +42,6 @@ export function sendNewTransaction(node) {
   }
   let newDataJSON = JSON.stringify(newData)
   let request = new Request(`${cfg.config.apiBase}/transaction/create`, {
-    headers: new Headers({
-      "X-Clacks-Overhead": "GNU Terry Pratchett"
-    }),
     method: "POST",
     body: newDataJSON,
   })
@@ -74,9 +67,6 @@ export function sendNewTransaction(node) {
 // send API request to delete a Transaction
 export function sendDeleteTransaction(transaction_id) {
   let request = new Request(`${cfg.config.apiBase}/transaction/delete/${transaction_id}`, {
-    headers: new Headers({
-      "X-Clacks-Overhead": "GNU Terry Pratchett"
-    }),
     method: "DELETE",
   })
   fetch(request).then((resp) => {
