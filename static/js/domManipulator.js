@@ -191,3 +191,10 @@ export function removeEditButtonsFromTR(node) {
     actionTD.children[i].style.visibility = "hidden"
   }
 }
+
+// This function gets called on page load and adds the
+// Name of the users above the table
+// TODO: Implement
+export function nameHeaders() {
+  console.log("Coming soon")
+}
