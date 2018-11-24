@@ -9,12 +9,9 @@ export function reloadData() {
       dm.constructTable(transactions)
     }).catch((err) => {
       new Toast("API server sends garbage, contact support", Toast.TYPE_ERROR, 3000)
-      console.log("Couldn't convert API data to JSON")
     })
   }).catch((err) => {
     new Toast("API unavailable", Toast.TYPE_ERROR, 3000)
-    console.log("Error calling API")
-    console.log(err)
   })
 }
 
@@ -65,7 +62,6 @@ export function submitTransaction(node) {
 
 // send API request to delete a Transaction
 export function sendDeleteTransaction(transaction_id) {
-  console.log(`about to delete transaction ${transaction_id}`)
   let request = new Request(`${cfg.config.apiBase}/transaction/delete/${transaction_id}`, {
     method: "DELETE",
   })

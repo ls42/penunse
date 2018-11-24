@@ -36,17 +36,6 @@ func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	json.NewEncoder(w).Encode(ts)
 }
 
-func apiTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) error {
-	userID, err := strconv.Atoi(r.URL.Path[len("/api/transaction/read/"):])
-	if err != nil {
-		return err
-	}
-	t := GetTransaction(userID, db)
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	json.NewEncoder(w).Encode(t)
-	return nil
-}
-
 func apiUpsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
@@ -65,4 +54,17 @@ func apiUpsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		return
 	}
 	t.Create(db)
+}
+
+func apiDeleteTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	transactionID, err := strconv.Atoi(r.URL.Path[len("/api/transaction/delete/"):])
+	if err != nil {
+		http.NotFound(w, r)
+	}
+	var t Transaction
+	if err = db.First(&t, transactionID).Error; err != nil {
+		http.NotFound(w, r)
+	} else {
+		db.Delete(&t)
+	}
 }

@@ -12,12 +12,11 @@ func main() {
 	defer db.Close()
 
 	mux := http.NewServeMux()
-
-	// TODO: Route to login or main view here
 	mux.HandleFunc("/", defaultHandler)
-	mux.HandleFunc("/api/transaction/read", makeHandler(apiAllTransactions, db))
 	mux.HandleFunc("/api/transaction/create", makeHandler(apiUpsertTransaction, db))
+	mux.HandleFunc("/api/transaction/read", makeHandler(apiAllTransactions, db))
 	mux.HandleFunc("/api/transaction/update", makeHandler(apiUpsertTransaction, db))
+	mux.HandleFunc("/api/transaction/delete/", makeHandler(apiDeleteTransaction, db))
 
 	mux.Handle(
 		"/static/",
