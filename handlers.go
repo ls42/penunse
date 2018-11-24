@@ -17,9 +17,17 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 	}
 }
 
-// Deliver the reference JavaScript application
-func mainHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "main", nil)
+// Deliver a few standard functions and files or 404 if nothing matched
+func defaultHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.URL.RequestURI() {
+	case "/favicon.ico":
+		http.ServeFile(w, r, "static/favicon.ico")
+	case "/":
+		// Render the reference JS client application
+		renderTemplate(w, "main", nil)
+	default:
+		http.NotFound(w, r)
+	}
 }
 
 func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
