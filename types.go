@@ -54,10 +54,12 @@ type params struct {
 	dbpass string
 }
 
+// Check if all params are useful
 func (p *params) validate() error {
-	if p.dbpass == "foo" {
-		// TODO: CLEANUP
-		return errors.New("database password not provided")
+	// Port must be an int and between 1 and 65535
+	validPort := uint16(p.port)
+	if validPort < 1 {
+		return errors.New("Port invalid, choose one from 1 to 65535")
 	}
 	return nil
 }
