@@ -4,20 +4,11 @@
 <h1>Penunse</h1>
 
 <div id="table-grid">
-  <div class="left">
-    <div class="button-container">
-      <input class="btn" id="plus-button-left" type="button" onclick="dm.handlePlusButtonClick(this)" value="+">
-    </div>
-    <table id="table-left" class="transaction-data">
-    </table>
+  <div class="button-container">
+    <input class="btn" id="plus-button" type="button" onclick="dm.handleAddButtonClick(this)" value="add">
   </div>
-  <div class="right">
-    <div class="button-container">
-      <input class="btn" id="plus-button-right" type="button" onclick="dm.handlePlusButtonClick(this)" value="+">
-    </div>
-    <table id="table-right" class="transaction-data">
-    </table>
-  </div>
+  <table id="table" class="transaction-data">
+  </table>
 </div>
 
 {{ template "foot" }}

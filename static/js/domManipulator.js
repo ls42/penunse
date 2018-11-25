@@ -2,36 +2,51 @@ import * as cfg from "./config.js"
 import * as ev from "./events.js"
 
 // Insert a new tr in both tables to insert a new transaction into the database.
-export function handlePlusButtonClick(node) {
+export function handleAddButtonClick(node) {
   // Add input row to table
-  let side = node.parentNode.parentNode.className
-  let body = document.getElementById(`body-${side}`)
+  let inputId, newInput, newNameSelect
+  let body = document.getElementById(`body`)
   let insertRow = body.insertRow(0)
-  insertRow.id = `insert-row-${side}`
+  insertRow.id = `insert-row`
   cfg.config.headers.forEach((header) => {
     let newTd = document.createElement("td")
     switch (header) {
       case "Date":
         newTd.appendChild(document.createTextNode(""))
         insertRow.appendChild(newTd)
-        break;
+        break
       case "Action":
         newTd.appendChild(document.createTextNode(""))
         insertRow.appendChild(newTd)
-        break;
+        break
+      case "User":
+        inputId = `input_${header.toLowerCase()}`
+        newNameSelect = document.createElement("select")
+        newNameSelect.id = inputId
+        newNameSelect.className = "transaction-input"
+        cfg.config.users.forEach((user) => {
+          console.log(user.name)
+          var option = document.createElement("option")
+          option.value = user.id
+          option.text = user.name
+          newNameSelect.appendChild(option)
+        })
+        newTd.appendChild(newNameSelect)
+        insertRow.appendChild(newTd)
+        break
       default:
-        let inputId = `input_${header.toLowerCase()}`
-        let newInput = document.createElement("input")
+        inputId = `input_${header.toLowerCase()}`
+        newInput = document.createElement("input")
         newInput.id = inputId
         newInput.type = "text"
         newInput.className = "transaction-input"
         newTd.appendChild(newInput)
         insertRow.appendChild(newTd)
-        break;
+        break
     }
   })
 
-  // Change `+`-button to submit
+  // Change `add`-button to submit
   node.value = "save"
   node.setAttribute("onclick", "sc.submitTransaction(this)")
 }
@@ -39,19 +54,11 @@ export function handlePlusButtonClick(node) {
 // Create a table based on `transactions` (which is an array of objects)
 // Usually gets called from `reloadData()` in `modules/serverConnector.js`
 export function constructTable(transactions) {
-  let leftTable = document.getElementById("table-left")
-  let rightTable = document.getElementById("table-right")
-
-  // Cleanup existing table
-  let tables = [leftTable, rightTable]
-  tables.forEach((table) => {
-    while (table.firstChild) {
-      table.removeChild(table.firstChild)
-    }
-  })
+  let table = document.getElementById("table")
+  table.removeChild(table.firstChild)
 
   // Generate table header
-  let tHead = document.createElement("thead")
+  let tableHead = document.createElement("thead")
   let tr = document.createElement("tr")
   cfg.config.headers.forEach((e) => {
     let cell = document.createElement("th")
@@ -62,17 +69,13 @@ export function constructTable(transactions) {
     }
     tr.appendChild(cell)
   })
-  tHead.appendChild(tr)
-  leftTable.appendChild(tHead)
-  rightTable.appendChild(tHead.cloneNode(true))
+  tableHead.appendChild(tr)
+  table.appendChild(tableHead)
 
   // Generate table body
-  let leftTotal = 0
-  let rightTotal = 0
-  let leftBody = document.createElement("tbody")
-  let rightBody = document.createElement("tbody")
-  leftBody.id = "body-left"
-  rightBody.id = "body-right"
+  let tableTotal = 0
+  let tableBody = document.createElement("tbody")
+  tableBody.id = "body"
   transactions.forEach((e) => {
     let tr = document.createElement("tr")
     tr.id = e.id
@@ -103,14 +106,25 @@ export function constructTable(transactions) {
           break
         case "Note":
           let noteCell
-          if (e.note.length >= 20) {
-            noteCell = document.createTextNode(e.note.substr(0, 20) + " [...]")
+          if (e.note.length > 30) {
+            noteCell = document.createTextNode(e.note.substr(0, 30) + " [...]")
           } else {
             noteCell = document.createTextNode(e.note)
           }
           cell.className = "note-td"
           cell.title = e.note
           cell.appendChild(noteCell)
+          break
+        case "User":
+          let userCell, username
+          cfg.config.users.forEach((user) => {
+            if (user.id === e.user_id) {
+              userCell = document.createTextNode(user.name)
+            }
+          })
+          cell.className = "user-td"
+          cell.title = e.user_id
+          cell.appendChild(userCell)
           break
         case "Action":
           // This is the target for the action buttons
@@ -135,44 +149,24 @@ export function constructTable(transactions) {
       }
       tr.appendChild(cell)
     })
-    if (e.user_id === 0) {
-      leftBody.appendChild(tr)
-      leftTotal += e.amount
-    } else {
-      rightBody.appendChild(tr)
-      rightTotal += e.amount
-    }
-
+    tableBody.appendChild(tr)
+    tableTotal += e.amount
   })
-  let totalTrLeft = document.createElement("tr")
-  totalTrLeft.className = "total"
-  let totalTrRight = document.createElement("tr")
-  totalTrRight.className = "total"
+  let totalTr = document.createElement("tr")
+  totalTr.className = "total"
   let totalCellText
   for (let i = 0; i < cfg.config.headers.length; i++) {
     let totalCell = document.createElement("td")
     if (cfg.config.headers[i] == "Amount") {
-      totalCellText = document.createTextNode(leftTotal.toFixed(2))
+      totalCellText = document.createTextNode(tableTotal.toFixed(2))
     } else {
       totalCellText = document.createTextNode("")
     }
     totalCell.appendChild(totalCellText)
-    totalTrLeft.appendChild(totalCell)
+    totalTr.appendChild(totalCell)
   }
-  for (let i = 0; i < cfg.config.headers.length; i++) {
-    let totalCell = document.createElement("td")
-    if (cfg.config.headers[i] == "Amount") {
-      totalCellText = document.createTextNode(rightTotal.toFixed(2))
-    } else {
-      totalCellText = document.createTextNode("")
-    }
-    totalCell.appendChild(totalCellText)
-    totalTrRight.appendChild(totalCell)
-  }
-  leftBody.appendChild(totalTrLeft)
-  rightBody.appendChild(totalTrRight)
-  leftTable.appendChild(leftBody)
-  rightTable.appendChild(rightBody)
+  tableBody.appendChild(totalTr)
+  table.appendChild(tableBody)
 }
 
 // This function gets called on mouseover of a TR and makes

@@ -8,6 +8,7 @@ export function reloadData() {
     resp.json().then((transactions) => {
       dm.constructTable(transactions)
     }).catch((err) => {
+      console.log(err)
       new Toast("API server sends garbage, contact support", Toast.TYPE_ERROR, 3000)
     })
   }).catch((err) => {
@@ -17,8 +18,7 @@ export function reloadData() {
 
 // Prepare form data and send it to API server
 export function submitTransaction(node) {
-  let side = node.parentNode.parentNode.className
-  let insertRow = document.getElementById(`insert-row-${side}`)
+  let insertRow = document.getElementById(`insert-row`)
   let tags = []
   insertRow.
     children[2].
@@ -31,10 +31,10 @@ export function submitTransaction(node) {
       tags.push({ name: tag })
     })
   let newData = {
-    user_id: side === "left" ? 0 : 1,
     amount: Number(insertRow.children[1].children['input_amount'].value.replace(",", ".")),
     tags: tags,
     note: insertRow.children[3].children['input_note'].value,
+    user_id: insertRow.children[4].children['input_user'].selectedIndex,
   }
   let newDataJSON = JSON.stringify(newData)
   let request = new Request(`${cfg.config.apiBase}/transaction/create`, {
@@ -55,8 +55,8 @@ export function submitTransaction(node) {
     // Remove the newly inserted entry to the table (class `temporary`)
   }).then(() => {
     reloadData()
-    node.value = "+"
-    node.setAttribute("onclick", "dm.handlePlusButtonClick(this)")
+    node.value = "add"
+    node.setAttribute("onclick", "dm.handleAddButtonClick(this)")
   })
 }
 
