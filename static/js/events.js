@@ -11,7 +11,6 @@ export function mouseOutTransactionTR(event) {
 
 export function clickEditButton(event) {
 	let transaction_id = event.target.dataset.transactionId
-	console.log(`edit transaction #${transaction_id}`)
 }
 
 export function clickDeleteButton(event) {

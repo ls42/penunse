@@ -25,7 +25,6 @@ export function handleAddButtonClick(node) {
         newNameSelect.id = inputId
         newNameSelect.className = "transaction-input"
         cfg.config.users.forEach((user) => {
-          console.log(user.name)
           var option = document.createElement("option")
           option.value = user.id
           option.text = user.name

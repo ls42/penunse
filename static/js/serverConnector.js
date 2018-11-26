@@ -8,7 +8,6 @@ export function reloadData() {
     resp.json().then((transactions) => {
       dm.constructTable(transactions)
     }).catch((err) => {
-      console.log(err)
       new Toast("API server sends garbage, contact support", Toast.TYPE_ERROR, 3000)
     })
   }).catch((err) => {
