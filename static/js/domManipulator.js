@@ -55,7 +55,9 @@ export function handleAddButtonClick(node) {
 // Usually gets called from `reloadData()` in `modules/serverConnector.js`
 export function constructTable(transactions) {
   let table = document.getElementById("table")
-  table.removeChild(table.firstChild)
+  while (table.firstChild) {
+    table.removeChild(table.firstChild)
+  }
 
   // Generate table header
   let tableHead = document.createElement("thead")
