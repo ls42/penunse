@@ -43,16 +43,12 @@ export function submitTransaction(node) {
   })
   fetch(request).then((resp) => {
     if (resp.ok) {
-      // Remove the `temporary`-flag from the newly inserted TR
-      // or redraw table
       new Toast("Transaction submitted!", Toast.TYPE_DONE, 3000)
     } else {
-      // Remove the newly inserted entry to the table (class `temporary`)
       new Toast("Server not satisfied with our request", Toast.TYPE_ERROR, 3000)
     }
   }).catch((err) => {
     new Toast("Could not send transaction to server", Toast.TYPE_ERROR, 3000)
-    // Remove the newly inserted entry to the table (class `temporary`)
   }).then(() => {
     reloadData()
     node.value = "add"
