@@ -28,6 +28,7 @@ export function handleAddButtonClick(node) {
           var option = document.createElement("option")
           option.value = user.id
           option.text = user.name
+          if (user.id === 1) option.selected = true
           newNameSelect.appendChild(option)
         })
         newTd.appendChild(newNameSelect)
