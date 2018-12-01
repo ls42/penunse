@@ -1,25 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Penunse Vue</title>
+    <meta name="author" content="Stephan Brauer" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>PenunseVue</h1>
+      <section v-if="errored"><p>sorry, unable to retrieve data</p></section>
+      <section v-else>
+        <div v-if="loading">loading...</div>
+        <ol v-else>
+          <li v-for="t in transactions">
+            {{ t.created | dateReadable }} - {{ t.amount }} - {{ t.note }} - {{
+            t.user_id }}
+          </li>
+        </ol>
+      </section>
+    </div>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Penunse Vue</title>
-  <meta name="author" content="Stephan Brauer">
-</head>
-<body>
-
-<div id="app">
-  <h1>PenunseVue</h1>
-  <section v-if="errored"><p>sorry, unable to retrieve data</p></section>
-  <section v-else>
-    <div v-if="loading">loading...</div>
-    <ol v-else>
-      <li v-for="t in transactions">{{ t.created | dateReadable }} - {{ t.amount  }} - {{ t.note }} - {{ t.user_id }}</li>
-    </ol>
-  </section>
-</div>
-
-<script src="static/app/node_modules/vue/dist/vue.js"></script>
-<script src="static/app.js"></script>
-</body>
+    <script src="static/app/node_modules/vue/dist/vue.js"></script>
+    <script src="static/app.js"></script>
+  </body>
 </html>
