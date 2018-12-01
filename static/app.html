@@ -7,20 +7,16 @@
   <meta name="author" content="Stephan Brauer">
 </head>
 <body>
-<!--
-  Workflow:
-  - Call a JavaScript function that fetches all data from an API (/api/transaction/read)
-    - Does that happen here, or in a JavaScript file?
-  - Create an HTML table
-    - This should be a Componenent already I think
-  - Fill that table with one Vue component for each transaction in the above data
-  - be happy
-  - How to implement Websockets? Means how does the app know when the dataset
-    changes?
--->
 
 <div id="app">
-  {{ message }}
+  <h1>PenunseVue</h1>
+  <section v-if="errored"><p>sorry, unable to retrieve data</p></section>
+  <section v-else>
+    <div v-if="loading">loading...</div>
+    <ol v-else>
+      <li v-for="t in transactions">{{ t.created | dateReadable }} - {{ t.amount  }} - {{ t.note }} - {{ t.user_id }}</li>
+    </ol>
+  </section>
 </div>
 
 <script src="static/app/node_modules/vue/dist/vue.js"></script>
