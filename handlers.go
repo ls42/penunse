@@ -22,9 +22,9 @@ func appHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.RequestURI() {
 	case "/favicon.ico":
 		http.ServeFile(w, r, "static/favicon.ico")
-	case "/app":
+	case "/":
 		// Render the reference VueJS client application
-		http.ServeFile(w, r, "static/app/html")
+		http.ServeFile(w, r, "static/app.html")
 	default:
 		http.NotFound(w, r)
 	}
