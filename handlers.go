@@ -30,6 +30,19 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Deliver a few standard functions and files or 404 if nothing matched
+func appHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.URL.RequestURI() {
+	case "/favicon.ico":
+		http.ServeFile(w, r, "static/favicon.ico")
+	case "/app":
+		// Render the reference JS client application
+		renderTemplate(w, "app", nil)
+	default:
+		http.NotFound(w, r)
+	}
+}
+
 func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	ts := GetTransactions(db)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -40,8 +53,6 @@ func apiUpsertTransaction(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	log.Printf("new entry:\t%+v", string(reqBody))
-	// TODO: Check here if the new entry has an ID. If it does,
-	//       update an existing entry
 	if err != nil {
 		http.Error(w, "cannot read data", 400)
 		return

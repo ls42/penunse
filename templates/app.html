@@ -1,0 +1,32 @@
+{{ define "app" }}
+{{ template "head" . }}
+
+<!--
+
+  Workflow:
+  - Call a JavaScript function that fetches all data from an API (/api/transaction/read)
+    - Does that happen here, or in a JavaScript file?
+  - Create an HTML table
+    - This should be a Componenent already I think
+  - Fill that table with one Vue component for each transaction in the above data
+  - be happy
+  - How to implement Websockets? Means how does the app know when the dataset
+    changes?
+
+-->
+
+<div id="app">
+  {{ message }}
+</div>
+
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!'
+    }
+  })
+</script>
+
+{{ template "foot" }}
+{{ end }}
