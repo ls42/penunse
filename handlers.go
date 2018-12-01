@@ -18,26 +18,13 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 }
 
 // Deliver a few standard functions and files or 404 if nothing matched
-func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.RequestURI() {
-	case "/favicon.ico":
-		http.ServeFile(w, r, "static/favicon.ico")
-	case "/":
-		// Render the reference JS client application
-		renderTemplate(w, "main", nil)
-	default:
-		http.NotFound(w, r)
-	}
-}
-
-// Deliver a few standard functions and files or 404 if nothing matched
 func appHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.RequestURI() {
 	case "/favicon.ico":
 		http.ServeFile(w, r, "static/favicon.ico")
 	case "/app":
-		// Render the reference JS client application
-		renderTemplate(w, "app", nil)
+		// Render the reference VueJS client application
+		http.ServeFile(w, r, "static/app/html")
 	default:
 		http.NotFound(w, r)
 	}

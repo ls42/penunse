@@ -1,8 +1,13 @@
-{{ define "app" }}
-{{ template "head" . }}
+<!doctype html>
+<html>
 
+<head>
+  <meta charset="UTF-8">
+  <title>Penunse Vue</title>
+  <meta name="author" content="Stephan Brauer">
+</head>
+<body>
 <!--
-
   Workflow:
   - Call a JavaScript function that fetches all data from an API (/api/transaction/read)
     - Does that happen here, or in a JavaScript file?
@@ -12,21 +17,12 @@
   - be happy
   - How to implement Websockets? Means how does the app know when the dataset
     changes?
-
 -->
 
 <div id="app">
   {{ message }}
 </div>
 
-<script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-      message: 'Hello Vue!'
-    }
-  })
-</script>
-
-{{ template "foot" }}
-{{ end }}
+<script type="module" src="static/js/vueapp.js"></script>
+</body>
+</html>
