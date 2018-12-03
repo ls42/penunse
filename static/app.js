@@ -15,9 +15,9 @@ let transactions
 //
 // Basic configuration
 const conf = {
-  apiBaseUrl: 'http://localhost:4202/api',
-  headers: ['Date', 'Amount', 'Tags', 'Note', 'User', 'Action'],
-  users: [{id: 0, name: 'Stephan'}, {id: 1, name: 'Kerstin'}],
+  apiBaseUrl: "http://localhost:4202/api",
+  headers: ["Date", "Amount", "Tags", "Note", "User", "Action"],
+  users: [{id: 0, name: "Stephan"}, {id: 1, name: "Kerstin"}],
 }
 
 //
@@ -38,14 +38,14 @@ function fetchData(app) {
         .finally(() => (app.loading = false))
     })
     .catch(err => {
-      alert('#2 cannot talk to api server')
+      alert("#2 cannot talk to api server")
     })
     .finally(() => (app.loading = false))
 }
 
 // Create the application
 var app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     transactions: null,
     loading: true,
@@ -53,7 +53,7 @@ var app = new Vue({
   },
   filters: {
     dateReadable(date) {
-      return new Date(date).toLocaleDateString('de-DE')
+      return new Date(date).toLocaleDateString("de-DE")
     },
   },
   mounted() {
