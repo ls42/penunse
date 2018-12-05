@@ -5,40 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Penunse Vue</title>
     <meta name="author" content="Stephan Brauer" />
-    <link rel="stylesheet" href="/static/app/node_modules/buefy/dist/buefy.min.css" />
+    <link rel="stylesheet" href="/static/app.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- Navigation Bar -->
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://penunse.ls42.de">
-            <img src="/static/logo.png" alt="Penunse Finance Tracker" width="112" height="28" />
-          </a>
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span> <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      </nav>
-
-      <!-- Main Application -->
-      <div id="app">
-        <section v-if="errored"><p>sorry, unable to retrieve data</p></section>
-        <section v-else>
-          <div v-if="loading">loading...</div>
-          <ol v-else>
-            <li v-for="t in transactions">
-              {{ t.created | dateReadable }} - {{ t.amount }} - {{ t.note }} - {{ t.user_id }}
-            </li>
-          </ol>
-        </section>
-      </div>
+    <!-- Main Application -->
+    <div id="app">
+      <ol>
+        <li v-for="t in transactions">
+          {{ t.created | dateReadable }} - {{ t.amount }} - {{ t.note }} - {{ t.user_id }}
+        </li>
+      </ol>
     </div>
 
     <!-- JavaScript -->
     <script src="static/app/node_modules/vue/dist/vue.min.js"></script>
-    <script src="static/app/node_modules/buefy/dist/buefy.min.js"></script>
     <script src="static/app.js"></script>
   </body>
 </html>

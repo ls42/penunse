@@ -32,15 +32,12 @@ function fetchData(app) {
           app.transactions = ts
         })
         .catch(err => {
-          console.log(err)
-          app.errored = true
+          alert("#1 response not valid JSON")
         })
-        .finally(() => (app.loading = false))
     })
     .catch(err => {
       alert("#2 cannot talk to api server")
     })
-    .finally(() => (app.loading = false))
 }
 
 // Create the application
@@ -48,8 +45,6 @@ var app = new Vue({
   el: "#app",
   data: {
     transactions: null,
-    loading: true,
-    errored: false,
   },
   filters: {
     dateReadable(date) {
