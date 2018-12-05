@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -12,7 +10,6 @@ func GetTransactions(db *gorm.DB) []Transaction {
 	db.Table("transactions").
 		Preload("Tags").
 		Find(&ts)
-	fmt.Println("")
 	return ts
 }
 
