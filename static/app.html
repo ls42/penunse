@@ -8,13 +8,17 @@
     <link rel="stylesheet" href="/static/app.css" />
   </head>
   <body>
+    <div><img src="/static/logo.png" alt="Penunse Personal Finance Tracker" height="42px" /></div>
+
     <!-- Main Application -->
     <div id="app">
-      <ol>
-        <li v-for="t in transactions">
-          {{ t.created | dateReadable }} - {{ t.amount }} - {{ t.note }} - {{ t.user_id }}
-        </li>
-      </ol>
+      <ul>
+        <transaction-item
+          v-for="transaction in transactions"
+          v-bind:trans="transaction"
+          v-bind:key="transaction.id"
+        ></transaction-item>
+      </ul>
     </div>
 
     <!-- JavaScript -->

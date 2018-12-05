@@ -2,3 +2,9 @@ body {
   font-family: Iosevka;
   font-size: 12px;
 }
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

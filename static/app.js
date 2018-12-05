@@ -40,8 +40,14 @@ function fetchData(app) {
     })
 }
 
+Vue.component("transaction-item", {
+  props: ["trans"],
+  template:
+    "<li>{{ trans.created | dataReadable }} -> {{ trans.amount }} -> <b>{{ trans.note }}</b> -> {{ trans.user_id }} </li>",
+})
+
 // Create the application
-var app = new Vue({
+var vm = new Vue({
   el: "#app",
   data: {
     transactions: null,
