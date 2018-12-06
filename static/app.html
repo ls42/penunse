@@ -12,13 +12,18 @@
 
     <!-- Main Application -->
     <div id="app">
-      <ul>
-        <transaction-item
-          v-for="transaction in transactions"
-          v-bind:trans="transaction"
-          v-bind:key="transaction.id"
-        ></transaction-item>
-      </ul>
+      <table>
+        <thead>
+          <transaction-table-head></transaction-table-head>
+        </thead>
+        <tbody>
+          <transaction-item
+            v-for="transaction in transactions"
+            v-bind:trans="transaction"
+            v-bind:key="transaction.id"
+          ></transaction-item>
+        </tbody>
+      </table>
     </div>
 
     <!-- JavaScript -->
