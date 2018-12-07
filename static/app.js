@@ -60,28 +60,36 @@ Vue.component("transaction-item", {
     dataReadable: function(date) {
       return new Date(date).toLocaleDateString("de-DE")
     },
+    amountNormalized: function(amount) {
+      return amount.toFixed(2)
+    },
     userName: function(user_id) {
       return user_id ? "Kerstin" : "Stephan"
-    },
-    getTags: function(raw_tags) {
-      let mytags = ""
-      if (raw_tags !== null) {
-        raw_tags.forEach(function(raw_tag) {
-          mytags.concat("asf", `<span class="tag">${raw_tag.name}</span>`)
-        })
-        console.log(mytags)
-        return mytags
-      }
     },
   },
   template: `
     <tr>
       <td>{{ trans.created | dataReadable }}</td>
-      <td>{{ trans.amount }},-</td>
+      <td>{{ trans.amount | amountNormalized }},-</td>
       <td><b>{{ trans.note }}</b></td>
       <td>{{ trans.user_id | userName }}</td>
-      <td class="tags">{{ trans.tags | getTags }}</td>
+      <td class="tags"><tag-item
+            v-for="tag in trans.tags"
+            v-bind:tagObject="tag"
+            v-bind:key="tag.id"
+          ></tag-item></td>
     </tr>`,
+})
+
+Vue.component("tag-item", {
+  props: {
+    tagObject: Object,
+  },
+  template: `<span class="tag">{{ tagObject.name }}</span>`,
+})
+
+Vue.component("input-form", {
+  template: ``,
 })
 
 // Create the application

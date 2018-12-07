@@ -26,3 +26,7 @@ tr:hover {
   margin-right: 3px;
   white-space: nowrap;
 }
+
+.tags {
+  text-align: left;
+}
