@@ -18,12 +18,14 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 }
 
 // Deliver a few standard functions and files or 404 if nothing matched
-func appHandler(w http.ResponseWriter, r *http.Request) {
+func appHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	switch r.URL.RequestURI() {
 	case "/favicon.ico":
 		http.ServeFile(w, r, "static/favicon.ico")
 	case "/":
-		renderTemplate(w, "app", nil)
+		ts := GetTransactions(db)
+		fmt.Printf("%+v\n", ts)
+		renderTemplate(w, "app", ts)
 	default:
 		http.NotFound(w, r)
 	}

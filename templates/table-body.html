@@ -1,16 +1,19 @@
 {{ define "table-body" }}
 
-    <tr>
-      <td>{{ .Created }}</td>
-      <td>{{ .Amount }},-</td>
-      <td><b>{{ .Note }}</b></td>
-      <td>{{ .User }}</td>
-      <td>
-        {{ range .Tags }}
-        {{ else }}
-          -
-        {{ end }}
-      </td>
-    </tr>
+  {{ range . }}
+      <tr>
+        <td>{{ .CreatedAt }}</td>
+        <td>{{ .Amount }},-</td>
+        <td><b>{{ .Note }}</b></td>
+        <td>{{ .User }}</td>
+        <td class="tags">
+          {{ range .Tags }}
+            {{ template "tag" . }}
+          {{ else }}
+            -
+          {{ end }}
+        </td>
+      </tr>
 
+  {{ end }}
 {{ end }}
