@@ -30,3 +30,7 @@ tr:hover {
 .tags {
   text-align: left;
 }
+
+.amount {
+  white-space: pre;
+}

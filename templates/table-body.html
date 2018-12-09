@@ -3,9 +3,9 @@
   {{ range . }}
       <tr>
         <td>{{ .HumanDate nil }}</td>
-        <td>{{ .Amount }},-</td>
+        <td class="amount">{{ .AmountNormal nil }},-</td>
         <td><b>{{ .Note }}</b></td>
-        <td>{{ .Username nil }}</td>
+        <td>{{ .UserName nil }}</td>
         <td class="tags">
           {{ range .Tags }}
             {{ template "tag" . }}

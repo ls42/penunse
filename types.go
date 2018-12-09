@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -50,12 +51,17 @@ func (t *Transaction) HumanDate(db *gorm.DB) string {
 }
 
 // Username returns the corresponding username for an ID
-func (t *Transaction) Username(db *gorm.DB) string {
+func (t *Transaction) UserName(db *gorm.DB) string {
 	if t.User == 0 {
 		return "Stephan"
 	} else {
 		return "Kerstin"
 	}
+}
+
+// AmountNormal normalizes the amount to two digits.
+func (t *Transaction) AmountNormal(db *gorm.DB) string {
+	return fmt.Sprintf("%8.2f", t.Amount)
 }
 
 // Command line options packed together
