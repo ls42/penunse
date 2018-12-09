@@ -23,6 +23,6 @@ func main() {
 		http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))),
 	)
 
-	log.Printf("Listening on port %d\n", p.port)
+	log.Printf("listening on port %d\n", p.port)
 	http.ListenAndServe(":"+strconv.Itoa(p.port), mux)
 }

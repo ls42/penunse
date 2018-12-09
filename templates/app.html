@@ -1,0 +1,14 @@
+{{ define "app" }}
+{{ template "head" }}
+
+<div><img src="/static/logo.png" alt="Penunse Personal Finance Tracker" height="42px" /></div>
+
+  <table>
+    {{ template "table-head" }}
+    {{ template "table-body" . }}
+  </table>
+</div>
+
+{{ template "foot" }}
+{{ end }}
+
