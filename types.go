@@ -44,6 +44,20 @@ func (t *Transaction) Create(db *gorm.DB) {
 	db.Create(t)
 }
 
+// HumanDate returns a human readable date
+func (t *Transaction) HumanDate(db *gorm.DB) string {
+	return t.CreatedAt.Format("02.01.2006")
+}
+
+// Username returns the corresponding username for an ID
+func (t *Transaction) Username(db *gorm.DB) string {
+	if t.User == 0 {
+		return "Stephan"
+	} else {
+		return "Kerstin"
+	}
+}
+
 // Command line options packed together
 type params struct {
 	port   int

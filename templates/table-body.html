@@ -2,10 +2,10 @@
 
   {{ range . }}
       <tr>
-        <td>{{ .CreatedAt }}</td>
+        <td>{{ .HumanDate nil }}</td>
         <td>{{ .Amount }},-</td>
         <td><b>{{ .Note }}</b></td>
-        <td>{{ .User }}</td>
+        <td>{{ .Username nil }}</td>
         <td class="tags">
           {{ range .Tags }}
             {{ template "tag" . }}

@@ -24,7 +24,6 @@ func appHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		http.ServeFile(w, r, "static/favicon.ico")
 	case "/":
 		ts := GetTransactions(db)
-		fmt.Printf("%+v\n", ts)
 		renderTemplate(w, "app", ts)
 	default:
 		http.NotFound(w, r)
