@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/jinzhu/gorm"
 )
@@ -45,9 +46,36 @@ func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 
 // Save entry and redirect to mainHandler
 func saveHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	// 1. parse ID from URL
-	// 2. Parse form data
-	// 3. Update entry in database
+	id, err := strconv.Atoi(r.URL.Path[len("/save/"):])
+	if err != nil {
+		log.Printf("%s\n", err)
+		http.NotFound(w, r)
+	} else {
+		t := GetTransaction(id, db)
+		t.User, err = strconv.Atoi(r.FormValue("t_user"))
+		if err != nil {
+			log.Printf("%s\n", err)
+			renderTemplate(w, "edit-form", &t)
+		}
+		t.Note = r.FormValue("t_note")
+		amount64, err := strconv.ParseFloat(r.FormValue("t_amount"), 32)
+		if err != nil {
+			log.Printf("%s\n", err)
+			renderTemplate(w, "edit-form", &t)
+		}
+		t.Amount = float32(amount64)
+		tagString := r.FormValue("t_tags")
+		tags := strings.Split(tagString, ",")
+		db.Model(&t).Association("Tags").Delete(t.Tags)
+		t.Tags = t.Tags[:0]
+		for _, tag := range tags {
+			var newTag Tag
+			newTag.Name = strings.TrimSpace(tag)
+			t.Tags = append(t.Tags, newTag)
+		}
+		t.Save(db)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
 }
 
 func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {

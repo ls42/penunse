@@ -18,6 +18,6 @@ func GetTransaction(id int, db *gorm.DB) Transaction {
 	var t Transaction
 	db.Table("transactions").
 		Preload("Tags").
-		First(&t, id)
+		FirstOrCreate(&t, id)
 	return t
 }

@@ -41,9 +41,14 @@ type Tag struct {
 	DeletedAt *time.Time `json:"deleted"`
 }
 
-// Create saves this Transaction to the database
+// Create inserts this Transaction to the database
 func (t *Transaction) Create(db *gorm.DB) {
-	db.Create(t)
+	db.Create(&t)
+}
+
+// Save saves this Transaction to the database
+func (t *Transaction) Save(db *gorm.DB) {
+	db.Save(&t)
 }
 
 // HumanDate returns a human readable date
