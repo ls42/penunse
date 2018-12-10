@@ -32,10 +32,6 @@ func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 
 // Render the edit-form
 func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	// 1. parse the id of the entry that should be edited (from URL)
-	// 2. fetch data from database for this ID
-	// 3. render form and fill form fields
-	// renderTemplate(w, "editTransaction", ts)
 	id, err := strconv.Atoi(r.URL.Path[len("/edit/"):])
 	if err != nil {
 		http.NotFound(w, r)
@@ -43,7 +39,6 @@ func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		log.Printf("requested to edit entry `%d`\n", id)
 		t := GetTransaction(id, db)
 		renderTemplate(w, "edit-form", t)
-
 	}
 
 }

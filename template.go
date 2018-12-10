@@ -7,14 +7,7 @@ import (
 )
 
 var t = template.Must(template.ParseGlob("templates/*.tmpl"))
-var errorTemplate = `
-<html>
-	<body>
-		<h1>Error rendering template %s</h1>
-		<p>%s</p>
-	</body>
-</html>
-`
+var errorTemplate = `Error rendering template %s => %s`
 
 func renderTemplate(w http.ResponseWriter, name string, data interface{}) {
 	err := t.ExecuteTemplate(w, name, data)

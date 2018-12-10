@@ -16,6 +16,8 @@ func GetTransactions(db *gorm.DB) []Transaction {
 // GetTransaction loads a single transaction from the database, by ID.
 func GetTransaction(id int, db *gorm.DB) Transaction {
 	var t Transaction
-	db.Find(&t, id)
+	db.Table("transactions").
+		Preload("Tags").
+		First(&t, id)
 	return t
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -46,12 +47,12 @@ func (t *Transaction) Create(db *gorm.DB) {
 }
 
 // HumanDate returns a human readable date
-func (t *Transaction) HumanDate(db *gorm.DB) string {
+func (t *Transaction) HumanDate() string {
 	return t.CreatedAt.Format("02.01.2006")
 }
 
 // Username returns the corresponding username for an ID
-func (t *Transaction) UserName(db *gorm.DB) string {
+func (t *Transaction) UserName() string {
 	if t.User == 0 {
 		return "Stephan"
 	} else {
@@ -60,8 +61,17 @@ func (t *Transaction) UserName(db *gorm.DB) string {
 }
 
 // AmountNormal normalizes the amount to two digits.
-func (t *Transaction) AmountNormal(db *gorm.DB) string {
-	return fmt.Sprintf("%8.2f", t.Amount)
+func (t *Transaction) AmountNormal() string {
+	return fmt.Sprintf("%.2f", t.Amount)
+}
+
+// TagsNormal combines all tags to a single, comma-separated string
+func (t *Transaction) TagsNormal() string {
+	var tags []string
+	for _, tag := range t.Tags {
+		tags = append(tags, tag.Name)
+	}
+	return strings.Join(tags, ",")
 }
 
 // Command line options packed together
