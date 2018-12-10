@@ -4,10 +4,12 @@
   --yellow: #fcf7c2;
   --white: white;
   --brand-color: #3fa768;
+  --default-font-family: sans-serif;
+  --default-font-size: 12px;
 }
 body {
-  font-family: Iosevka, monospace;
-  font-size: 12px;
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
 }
 
 img {
@@ -59,10 +61,56 @@ a {
   padding: 2px 1px 0;
   color: var(--brand-color);
 }
+
 a:hover {
   text-decoration: underline;
   color: var(--black);
 }
+
 a:visited {
   color: var(--brand-color);
+}
+
+form {
+  margin: 0 auto;
+  width: 400px;
+  padding: 1em;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}
+
+input,
+textarea {
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+  width: 300px;
+  /* box-sizing: border-box; */
+  border: none;
+  border-bottom: 1px solid var(--silver);
+}
+
+input:focus,
+textarea:focus {
+  border-bottom: 1px solid var(--brand-color);
+}
+
+textarea {
+  vertical-align: top;
+  height: 5em;
+}
+
+.button {
+  padding-left: 90px;
+}
+
+button {
+  margin-left: 0.5em;
 }
