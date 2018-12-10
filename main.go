@@ -13,6 +13,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", makeHandler(mainHandler, db))
+	mux.HandleFunc("/add", makeHandler(addHandler, db))
 	mux.HandleFunc("/edit/", makeHandler(editHandler, db))
 	mux.HandleFunc("/save/", makeHandler(saveHandler, db))
 	mux.HandleFunc("/api/transaction/create", makeHandler(apiUpsertTransaction, db))

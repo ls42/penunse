@@ -31,6 +31,14 @@ func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	}
 }
 
+// Render the add-form
+func addHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	log.Println("creating empty transaction for `add`-form")
+	id := 0
+	t := GetTransaction(id, db)
+	renderTemplate(w, "edit-form", &t)
+}
+
 // Render the edit-form
 func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	id, err := strconv.Atoi(r.URL.Path[len("/edit/"):])

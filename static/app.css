@@ -30,6 +30,13 @@ table {
   border-collapse: collapse;
 }
 
+.add-button {
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 tbody tr:nth-child(even) {
   background-color: var(--silver);
 }
@@ -124,10 +131,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 textarea {
   vertical-align: top;
   height: 5em;
-}
-
-.button {
-  padding-left: 90px;
 }
 
 button {

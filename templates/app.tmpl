@@ -1,10 +1,12 @@
 {{ define "app" }}
 {{ template "head" }}
 
+<div class="table">
   <table>
     {{ template "table-head" }}
     {{ template "table-body" . }}
   </table>
+  <button class="add-button" href="/add">add</button>
 </div>
 
 {{ template "foot" }}
