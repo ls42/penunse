@@ -1,5 +1,12 @@
+:root {
+  --black: black;
+  --silver: rgba(0, 0, 0, 0.05);
+  --yellow: #fcf7c2;
+  --white: white;
+  --brand-color: #3fa768;
+}
 body {
-  font-family: Iosevka;
+  font-family: Iosevka, monospace;
   font-size: 12px;
 }
 
@@ -10,17 +17,28 @@ img {
 }
 
 td {
-  border: 1px solid white;
-  padding: 0px 5px;
+  border: 1px solid var(--silver);
+  padding: 2px 5px;
   text-align: right;
 }
 
-tr:hover {
-  background-color: #ddd;
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--silver);
+}
+
+.def-bg {
+  background-color: var(--white);
 }
 
 .tag {
-  background-color: #fcf7c2;
+  background-color: var(--brand-color);
+  color: var(--white);
   border-radius: 3px;
   padding: 1px 4px 1px 4px;
   margin-right: 3px;
@@ -33,4 +51,18 @@ tr:hover {
 
 .amount {
   white-space: pre;
+}
+
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+  color: var(--brand-color);
+}
+a:hover {
+  text-decoration: underline;
+  color: var(--black);
+}
+a:visited {
+  color: var(--brand-color);
 }

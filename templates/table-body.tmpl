@@ -2,11 +2,12 @@
 
   {{ range . }}
       <tr>
+        <td class="def-bg"><a href="/edit/{{ .ID }}">#{{ .ID }}</a></td>
         <td>{{ .HumanDate nil }}</td>
         <td class="amount">{{ .AmountNormal nil }},-</td>
-        <td><b>{{ .Note }}</b></td>
+        <td><em>{{ .Note }}</em></td>
         <td>{{ .UserName nil }}</td>
-        <td class="tags">
+        <td class="tags def-bg">
           {{ range .Tags }}
             {{ template "tag" . }}
           {{ else }}

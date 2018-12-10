@@ -18,7 +18,7 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 }
 
 // Deliver a few standard functions and files or 404 if nothing matched
-func appHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	switch r.URL.RequestURI() {
 	case "/favicon.ico":
 		http.ServeFile(w, r, "static/favicon.ico")
@@ -28,6 +28,31 @@ func appHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	default:
 		http.NotFound(w, r)
 	}
+}
+
+// Render the edit-form
+func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	// 1. parse the id of the entry that should be edited (from URL)
+	// 2. fetch data from database for this ID
+	// 3. render form and fill form fields
+	// renderTemplate(w, "editTransaction", ts)
+	id, err := strconv.Atoi(r.URL.Path[len("/edit/"):])
+	if err != nil {
+		http.NotFound(w, r)
+	} else {
+		log.Printf("requested to edit entry `%d`\n", id)
+		t := GetTransaction(id, db)
+		renderTemplate(w, "edit-form", t)
+
+	}
+
+}
+
+// Save entry and redirect to mainHandler
+func saveHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	// 1. parse ID from URL
+	// 2. Parse form data
+	// 3. Update entry in database
 }
 
 func apiAllTransactions(w http.ResponseWriter, r *http.Request, db *gorm.DB) {

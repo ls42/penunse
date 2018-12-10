@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-var t = template.Must(template.ParseGlob("templates/*.html"))
+var t = template.Must(template.ParseGlob("templates/*.tmpl"))
 var errorTemplate = `
 <html>
 	<body>
