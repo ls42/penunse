@@ -71,7 +71,7 @@ func (t *Transaction) TagsNormal() string {
 	for _, tag := range t.Tags {
 		tags = append(tags, tag.Name)
 	}
-	return strings.Join(tags, ",")
+	return strings.Join(tags, ", ")
 }
 
 // Command line options packed together

@@ -24,7 +24,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		http.ServeFile(w, r, "static/favicon.ico")
 	case "/":
 		ts := GetTransactions(db)
-		renderTemplate(w, "app", ts)
+		renderTemplate(w, "app", &ts)
 	default:
 		http.NotFound(w, r)
 	}
@@ -38,7 +38,7 @@ func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	} else {
 		log.Printf("requested to edit entry `%d`\n", id)
 		t := GetTransaction(id, db)
-		renderTemplate(w, "edit-form", t)
+		renderTemplate(w, "edit-form", &t)
 	}
 
 }

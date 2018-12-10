@@ -1,8 +1,6 @@
 {{ define "edit-form" }}
 {{ template "head" }}
 
-{{ with . }}
-
 <form action="/save/{{ .ID }}" method="post">
   <div>
     <label for="note">note:</label>
@@ -17,7 +15,7 @@
            placeholder="amount" min="0.10" step="0.10"
            value="{{ .Amount }}">
   </div>
-  
+
   <div>
     <label for="tags">tags:</label>
     <input type="text" id="tags" name="t_tags"
@@ -29,8 +27,6 @@
       <button type="submit">save</button>
   </div>
 </form>
-
-{{ end }}
 
 {{ template "foot" }}
 {{ end }}

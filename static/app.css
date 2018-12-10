@@ -93,13 +93,17 @@ textarea {
   font-size: var(--default-font-size);
   width: 230px;
   box-sizing: border-box;
+  height: 25px;
+  margin: 3px;
+  padding: 3px;
+  outline: none;
   border: none;
   border-bottom: 1px solid var(--silver);
 }
 
 input:focus,
 textarea:focus {
-  border-bottom: 1px solid var(--brand-color);
+  border-bottom: 2px solid var(--brand-color);
 }
 
 textarea {
