@@ -91,8 +91,8 @@ input,
 textarea {
   font-family: var(--default-font-family);
   font-size: var(--default-font-size);
-  width: 300px;
-  /* box-sizing: border-box; */
+  width: 230px;
+  box-sizing: border-box;
   border: none;
   border-bottom: 1px solid var(--silver);
 }
