@@ -13,7 +13,7 @@
     <label for="amount">amount:</label>
     <input type="number" id="amount" name="t_amount"
            placeholder="amount" min="0.10" step="0.10"
-           value="{{ .Amount }}">
+           value="{{ .AmountNormal }}">
   </div>
 
   <div>
@@ -21,6 +21,14 @@
     <input type="text" id="tags" name="t_tags"
            placeholder="tags"
            value="{{ .TagsNormal }}">
+  </div>
+
+  <div>
+    <label for="name">name:</label>
+    <select id="user" name="t_user">
+      <option value="0" {{if .User }}selected{{end}}>Stephan</option>
+      <option value="1" {{if .User }}selected{{end}}>Kerstin</option>
+    </select>
   </div>
 
   <div>
