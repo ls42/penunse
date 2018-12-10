@@ -51,6 +51,11 @@ func (t *Transaction) Save(db *gorm.DB) {
 	db.Save(&t)
 }
 
+// Save saves this Transaction to the database
+func (t *Transaction) Delete(db *gorm.DB) {
+	db.Delete(&t)
+}
+
 // HumanDate returns a human readable date
 func (t *Transaction) HumanDate() string {
 	return t.CreatedAt.Format("02.01.2006")

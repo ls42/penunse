@@ -52,6 +52,20 @@ func editHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 
 }
 
+// Delete an entry
+func deleteHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	id, err := strconv.Atoi(r.URL.Path[len("/delete/"):])
+	if err != nil {
+		log.Printf("%s\n", err)
+		http.NotFound(w, r)
+	} else {
+		log.Printf("deleting entry `%d`\n", id)
+		t := GetTransaction(id, db)
+		t.Delete(db)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+}
+
 // Save entry and redirect to mainHandler
 func saveHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	id, err := strconv.Atoi(r.URL.Path[len("/save/"):])
