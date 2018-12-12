@@ -95,7 +95,8 @@ form {
   text-decoration: none;
   padding: 7px 5px;
   border-radius: 2px;
-  border: 1px solid var(--silver);
+  border: none;
+  border-bottom: 1px solid var(--silver);
   color: var(--brand-color);
   text-align: center;
   display: inline-block;
@@ -116,6 +117,7 @@ form {
   text-decoration: underline;
   color: var(--black);
   background-color: var(--silver);
+  border-bottom: 2px solid var(--brand-color);
 }
 
 form div + div {
