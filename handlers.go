@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -86,6 +87,11 @@ func saveHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 			renderTemplate(w, "edit-form", &t)
 		}
 		t.Amount = float32(amount64)
+		t.Date, err = time.Parse("02.01.2006", r.FormValue("t_date"))
+		if err != nil {
+			log.Printf("%s\n", err)
+			renderTemplate(w, "edit-form", &t)
+		}
 		tagString := r.FormValue("t_tags")
 		tags := strings.Split(tagString, ",")
 		db.Model(&t).Association("Tags").Delete(t.Tags)

@@ -27,6 +27,7 @@ type Transaction struct {
 	Amount    float32    `json:"amount"`
 	Tags      []Tag      `json:"tags" gorm:"many2many:transactions_tags;"`
 	Note      string     `json:"note"`
+	Date      time.Time  `json:"date"`
 	CreatedAt time.Time  `json:"created" gorm:"DEFAULT:current_timestamp"`
 	UpdatedAt time.Time  `json:"updated" gorm:"DEFAULT:current_timestamp"`
 	DeletedAt *time.Time `json:"deleted"`
@@ -58,7 +59,10 @@ func (t *Transaction) Delete(db *gorm.DB) {
 
 // HumanDate returns a human readable date
 func (t *Transaction) HumanDate() string {
-	return t.CreatedAt.Format("02.01.2006")
+	if t.Date.IsZero() {
+		return t.CreatedAt.Format("02.01.2006")
+	}
+	return t.Date.Format("02.01.2006")
 }
 
 // Username returns the corresponding username for an ID
