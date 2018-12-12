@@ -31,11 +31,14 @@
     </select>
   </div>
 
-  <div>
-      <button type="submit">save</button>
+  <div class="action-bar">
+    <button class="button action-link submit-link" type="submit">save</button>
+    <a class="action-link delete-link" href="/delete/{{ .ID }}">delete</a>
+    <a class="action-link" href="/">cancel</a>
   </div>
+
 </form>
-<a class="delete-link" href="/delete/{{ .ID }}">delete</a>
+
 
 {{ template "foot" }}
 {{ end }}

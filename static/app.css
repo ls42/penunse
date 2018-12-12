@@ -1,21 +1,26 @@
  :root {
   --black: black;
   --silver: rgba(0, 0, 0, 0.05);
-  --yellow: #fcf7c2;
   --white: white;
   --brand-color: #3fa768;
   --default-font-family: sans-serif;
   --default-font-size: 12px;
+  --danger: crimson;
 }
+
 body {
   font-family: var(--default-font-family);
   font-size: var(--default-font-size);
 }
 
+.main {
+  width: 550px;
+  margin: auto;
+}
+
 img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 td {
@@ -25,16 +30,11 @@ td {
 }
 
 table {
-  margin-left: auto;
-  margin-right: auto;
   border-collapse: collapse;
 }
 
-.add-button {
-  margin-top: 5px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+.action-bar {
+  margin-top: 15px;
 }
 
 tbody tr:nth-child(even) {
@@ -62,26 +62,60 @@ tbody tr:nth-child(even) {
   white-space: pre;
 }
 
-a {
+form {
+  margin: 0 auto;
+  width: 400px;
+  padding: 1em;
+}
+
+.button {
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+.id-link {
   outline: none;
   text-decoration: none;
   padding: 2px 1px 0;
   color: var(--brand-color);
 }
 
-a:hover {
+.id-link:hover {
   text-decoration: underline;
   color: var(--black);
 }
 
-a:visited {
+.id-link:visited {
   color: var(--brand-color);
 }
 
-form {
-  margin: 0 auto;
-  width: 400px;
-  padding: 1em;
+.action-link {
+  outline: none;
+  text-decoration: none;
+  padding: 7px 5px;
+  border-radius: 2px;
+  border: 1px solid var(--silver);
+  color: var(--brand-color);
+  text-align: center;
+  display: inline-block;
+  width: 55px;
+  box-sizing: border-box;
+}
+
+.delete-link {
+  color: var(--danger);
+  float: right;
+}
+
+.action-link:visited {
+  color: var(--brand-color);
+}
+
+.action-link:hover {
+  text-decoration: underline;
+  color: var(--black);
+  background-color: var(--silver);
 }
 
 form div + div {
@@ -131,8 +165,4 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 textarea {
   vertical-align: top;
   height: 5em;
-}
-
-button {
-  margin-left: 0.5em;
 }
