@@ -3,6 +3,12 @@
 
 <form action="/save/{{ .ID }}" method="post">
   <div>
+    <label for="date">date:</label>
+    <input type="date" id="date" name="t_date"
+           value="{{ .HumanDate }}">
+  </div>
+
+  <div>
     <label for="note">note:</label>
     <input type="text" id="note" name="t_note"
            placeholder="note"
