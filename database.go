@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -16,8 +18,12 @@ func GetTransactions(db *gorm.DB) []Transaction {
 // GetTransaction loads a single transaction from the database, by ID.
 func GetTransaction(id int, db *gorm.DB) Transaction {
 	var t Transaction
-	db.Table("transactions").
+	err := db.Table("transactions").
 		Preload("Tags").
-		FirstOrCreate(&t, id)
+		First(&t, id).
+		Error
+	if err != nil {
+		t.Date = time.Now()
+	}
 	return t
 }
