@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>penunse</title>
     <meta name="author" content="Stephan Brauer" />
-    <link rel="stylesheet" href="/static/app.css" />
+    {{ template "stylesheet" }}
+    {{ template "favicon" }}
   </head>
 </head>
 
 <body>
   <div class="main">
-    <img src="/static/logo.png" alt="Penunse Personal Finance Tracker" height="42px" />
+    {{ template "logo" }}
+
 {{ end }}
