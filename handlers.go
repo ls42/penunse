@@ -22,8 +22,6 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 // Deliver a few standard functions and files or 404 if nothing matched
 func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	switch r.URL.RequestURI() {
-	case "/favicon.ico":
-		http.ServeFile(w, r, "static/favicon.ico")
 	case "/":
 		ts := GetTransactions(db)
 		renderTemplate(w, "app", &ts)
