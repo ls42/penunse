@@ -6,28 +6,28 @@ Expense Tracker Web Application
 
 This project is made of two parts:
 
-1. An API server, that handles all data storage tasks and makes the data available via a REST interface.
-1. A reference client, that is written in JavaScript, CSS and HTML.
+1. An API, that handles all data storage tasks and makes the data 
+available via a REST interface. The API is available under the 
+`/api/*`-route.
+1. A reference client, that is written with Go-HTML-Templates.
 
 ### API Server
 
 There is an API server that's written in Go. It's external dependencies are listed in [go.mod](penunse/tree/master/go.mod)
 
 
-### JavaScript reference client
+### Reference Client
 
-When accessing the route `/` the server will hand out a reference API client.
+When accessing the route `/` the server will hand out a reference 
+client. I initially designed this as a JavaScript frontend for the API, 
+but then I got turned off by all the JavaScript ecosystem overhead (with 
+Vue.js, NPM, vue-cli and suddenly I had around 200 external 
+dependencies) and so I decided to switch to a frontend that's made off 
+Go and it's `template/html` stdlib.
 
+The goal of the client is to have as few dependencies as possible 
+(that's the goal for the whole project in fact).  
 
-Goals are:
-
-- Stick with vanilla ES6 source. I try to keep external dependencies minimal and include the source directly in this repo, no CDN or external requirements during build time.
-
-So far these are the dependecies I think I need (sure we can strip those too, somehow):
-
-* [ToasterJS](https://github.com/ZitRos/toaster-js)
-
-The client talks to the server via the JavaScript Request API. It's an REST API.
 
 ## Tasks
 
