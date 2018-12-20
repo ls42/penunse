@@ -20,7 +20,10 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	switch r.URL.RequestURI() {
 	case "/":
-		ts := GetTransactions(db)
+		filter :=
+			"date(date) >= date('now', 'start of month') AND " +
+				"date(date) <= date('now', '+1 month', 'start of month', '-1 day')"
+		ts := GetTransactionsWithFilters(db, filter)
 		renderTemplate(w, "app", &ts)
 	default:
 		http.NotFound(w, r)
