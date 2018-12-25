@@ -30,6 +30,13 @@ func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	}
 }
 
+func filterHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	filterString := r.FormValue("timeFilter")
+	// TODO: Create new function that takes a string and returns a filter string that
+	//       can be passed to GetTransactionsWithFilters
+	log.Println(filterString)
+}
+
 // Render the add-form
 func addHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	log.Println("creating empty transaction for `add`-form")

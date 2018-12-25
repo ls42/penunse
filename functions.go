@@ -16,6 +16,12 @@ func itob(v int) []byte {
 	return b
 }
 
+// parseTimeFilterString parses a string and returns a string that is usable in
+// GetTransactionsWithFilters
+func parseTimeFilterString(filter string) string {
+	return
+}
+
 // parseFlags defines and then parses all command line flags
 func parseFlags() params {
 	p := params{}
