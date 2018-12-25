@@ -9,17 +9,23 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
+// parseTimeFilterString parses a string and returns a string that is usable in
+// GetTransactionsWithFilters
+func parseTimeFilterString(filter string) string {
+	// "date(date) >= date('now', 'start of month') AND " +
+	// 			"date(date) <= date('now', '+1 month', 'start of month', '-1 day')"
+	// TODO: Find out how to proceed with the different output here. Maybe create a map
+	// of some sort that maps dates to specific sql snippets. There will be quite a bit of
+	// logic in this file, I should write my ideas down and put this function in a
+	// seperate file
+	return ""
+}
+
 // itob returns an 8-byte big endian representation of v.
 func itob(v int) []byte {
 	b := make([]byte, 8)
 	binary.BigEndian.PutUint64(b, uint64(v))
 	return b
-}
-
-// parseTimeFilterString parses a string and returns a string that is usable in
-// GetTransactionsWithFilters
-func parseTimeFilterString(filter string) string {
-	return ""
 }
 
 // parseFlags defines and then parses all command line flags
