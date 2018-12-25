@@ -52,7 +52,7 @@ func (t *Transaction) Save(db *gorm.DB) {
 	db.Save(&t)
 }
 
-// Save saves this Transaction to the database
+// Delete removes a Transaction from the database
 func (t *Transaction) Delete(db *gorm.DB) {
 	db.Delete(&t)
 }
@@ -65,13 +65,12 @@ func (t *Transaction) HumanDate() string {
 	return t.Date.Format("02.01.2006")
 }
 
-// Username returns the corresponding username for an ID
+// UserName returns the corresponding username for an ID
 func (t *Transaction) UserName() string {
 	if t.User == 0 {
 		return "Stephan"
-	} else {
-		return "Kerstin"
 	}
+	return "Kerstin"
 }
 
 // AmountNormal normalizes the amount to two digits.

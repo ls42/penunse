@@ -8,8 +8,10 @@
 
   <div class="action-bar">
     <a class="action-link" href="/add">add</a>
+    <form action="/filter" method="post" class="inline-form">
+      <input class="filter-field" type="text" placeholder="filter time" id="timeFilter" name="timeFilter">
+    </form>
   </div>
 
 {{ template "foot" }}
 {{ end }}
-
