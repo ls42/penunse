@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"time"
 )
 
 // parseTimeFilterString parses a string and returns a string that is usable in
@@ -22,10 +23,17 @@ func parseTimeFilterString(filter string) string {
 	// 	"nov", "november",
 	// 	"dec", "december",
 	// }
+	now := time.Now()
 
 	// If time is just a number its an ISO week -> return data from that week
 	if parsed, err := strconv.Atoi(filter); err == nil {
-		return fmt.Sprintf("strftime('%%W', date) = '%s'", strconv.Itoa(parsed))
+		_, currentWeek := now.ISOWeek()
+		if parsed <= currentWeek {
+			return fmt.Sprintf("strftime('%%W', date) = '%d'", parsed)
+		}
+		// Display last years data
+		return fmt.Sprintf("strftime('%%W', date, '-1 year') = '%d'", parsed)
+
 	}
 
 	// Default -> return date from current month
