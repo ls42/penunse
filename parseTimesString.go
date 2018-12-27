@@ -26,13 +26,13 @@ func parseTimeFilterString(filter string) string {
 	now := time.Now()
 
 	// If time is just a number its an ISO week -> return data from that week
-	if parsed, err := strconv.Atoi(filter); err == nil {
+	if weekOfYear, err := strconv.Atoi(filter); err == nil {
 		_, currentWeek := now.ISOWeek()
-		if parsed <= currentWeek {
-			return fmt.Sprintf("strftime('%%W', date) = '%d'", parsed)
+		if weekOfYear <= currentWeek {
+			return fmt.Sprintf("strftime('%%W', date) = '%d'", weekOfYear)
 		}
 		// Display last years data
-		return fmt.Sprintf("strftime('%%W', date, '-1 year') = '%d'", parsed)
+		return fmt.Sprintf("strftime('%%W', date, '-1 year') = '%d'", weekOfYear)
 
 	}
 
