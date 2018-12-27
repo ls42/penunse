@@ -20,21 +20,13 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, *gorm.DB), db *gorm
 func mainHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	switch r.URL.RequestURI() {
 	case "/":
-		filter :=
-			"date(date) >= date('now', 'start of month') AND " +
-				"date(date) <= date('now', '+1 month', 'start of month', '-1 day')"
+		filterString := r.FormValue("timeFilter")
+		filter := parseTimeFilterString(filterString)
 		ts := GetTransactionsWithFilters(db, filter)
 		renderTemplate(w, "app", &ts)
 	default:
 		http.NotFound(w, r)
 	}
-}
-
-func filterHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	filterString := r.FormValue("timeFilter")
-	// TODO: Create new function that takes a string and returns a filter string that
-	//       can be passed to GetTransactionsWithFilters
-	log.Println(filterString)
 }
 
 // Render the add-form
