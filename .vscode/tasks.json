@@ -4,7 +4,7 @@
 		{
 			"label": "BUILD MY PROJECT",
 			"type": "shell",
-			"command": "go build -o build/${workspaceFolderBasename}",
+			"command": "go build -o build/${workspaceFolderBasename}.exe",
 			"group": {
 				"kind": "build",
 				"isDefault": true
