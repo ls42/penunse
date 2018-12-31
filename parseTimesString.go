@@ -27,11 +27,11 @@ func parseTimeFilterString(filter string) string {
 
 	// Check if user input is a month
 	// -> return data from that month (either this or last year's)
-	if inSlice(filter, months) {
+	if month, exists := months[filter]; exists {
 		// 1. Check if month is in the past or future.
 		// 2. If in future, then use data from last year
 		//    Otherwise show data from this year
-		fmt.Printf("would use this string for sql: 2018-%s-*", monthsMap[filter])
+		fmt.Printf("would use this string for sql: 2018-%s-*", month)
 	}
 
 	// Default

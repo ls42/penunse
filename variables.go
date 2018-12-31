@@ -1,21 +1,6 @@
 package main
 
-var months = []string{
-	"jan", "january",
-	"feb", "february",
-	"mar", "march",
-	"apr", "april",
-	"may",
-	"jun", "june",
-	"jul", "july",
-	"aug", "august",
-	"sep", "september",
-	"oct", "october",
-	"nov", "november",
-	"dec", "december",
-}
-
-var monthsMap = map[string]string{
+var months = map[string]string{
 	"jan": "01", "january": "01",
 	"feb": "02", "february": "02",
 	"mar": "03", "march": "03",

@@ -16,16 +16,6 @@ func itob(v int) []byte {
 	return b
 }
 
-// inSlice checks if a string is in a slice of strings
-func inSlice(needle string, haystack []string) bool {
-	for _, hay := range haystack {
-		if needle == hay {
-			return true
-		}
-	}
-	return false
-}
-
 // parseFlags defines and then parses all command line flags
 func parseFlags() params {
 	p := params{}
