@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -89,15 +88,14 @@ func saveHandler(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 			log.Printf("%s\n", err)
 			renderTemplate(w, "edit-form", &t)
 		}
-		tagString := r.FormValue("t_tags")
-		tags := strings.Split(tagString, ",")
+
 		db.Model(&t).Association("Tags").Delete(t.Tags)
-		t.Tags = t.Tags[:0]
-		for _, tag := range tags {
-			var newTag Tag
-			newTag.Name = strings.TrimSpace(tag)
-			t.Tags = append(t.Tags, newTag)
+		err = parseTags(r.FormValue("t_tags"), &t)
+		if err != nil {
+			log.Printf("%s\n", err)
+			renderTemplate(w, "edit-form", &t)
 		}
+
 		t.Save(db)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}

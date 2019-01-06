@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"flag"
 	"log"
+	"strings"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -25,6 +26,18 @@ func parseFlags() params {
 		log.Fatal(err)
 	}
 	return p
+}
+
+func parseTags(tagString string, t *Transaction) error {
+	tags := strings.Split(tagString, ",")
+	t.Tags = t.Tags[:0]
+	for _, tag := range tags {
+		var newTag Tag
+		newTag.Name = strings.TrimSpace(tag)
+		newTag.Name = strings.ToLower(newTag.Name)
+		t.Tags = append(t.Tags, newTag)
+	}
+	return nil
 }
 
 func prepareDB(p *params) *gorm.DB {
