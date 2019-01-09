@@ -1,6 +1,7 @@
 # Penunse
 
-Expense Tracker Web Application written in Go, HTML, CSS and SQL.
+Expense Tracker Web Application written in Go, HTML, CSS and SQL. Ready 
+to be deployed as a single binary.
 
 ## Architecture
 
