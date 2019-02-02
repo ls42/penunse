@@ -1,4 +1,4 @@
-module git.sr.ht:~stephan/penunse
+module github.com/ls42/penunse
 
 require (
 	github.com/jinzhu/gorm v1.9.2-0.20181103141439-472c70caa402
