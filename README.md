@@ -3,6 +3,8 @@
 Expense Tracker Web Application written in Go, HTML, CSS and SQL. Ready 
 to be deployed as a single binary.
 
+The descriptions in this README might not be up-to-date.
+
 ## Architecture
 
 This project is made of two parts:
@@ -14,7 +16,7 @@ available via a REST interface. The API is available under the
 
 ### API Server
 
-There is an API server that's written in Go. It's external dependencies are listed in [go.mod](penunse/tree/master/go.mod)
+There is an API server that's written in Go. It's external dependencies are listed in [go.mod](penunse/blob/master/go.mod)
 
 
 ### Reference Client
