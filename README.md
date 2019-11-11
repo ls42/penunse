@@ -5,8 +5,7 @@ to be deployed as a single binary.
 
 The descriptions in this README might not be up-to-date.
 
-[![penunse :: demo](static/penunse-screenshot.png)](static/penunse.avi "penuse
-:: demo")
+![penunse :: demo](static/penunse.gif)
 
 ## Architecture
 
